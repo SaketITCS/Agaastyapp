@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agastya - Role Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        .background-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+      
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/20240919_134703.jpg');
+
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            animation: scaleIn 1.5s forwards;
+        }
+        
+        .content-container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideDown 1s forwards;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: slideDown 1s 0.2s forwards;
+        }
+        
+        .button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .transparent-button {
+            width: 80%;
+            max-width: 400px;
+            height: 70px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 10.32px rgba(0, 0, 0, 0.44);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .admin-button {
+            animation: slideUp 1s 0.4s forwards;
+        }
+        
+        .user-button {
+            animation: slideUp 1s 0.6s forwards;
+        }
+        
+        .transparent-button:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .transparent-button-text {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes scaleIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Media queries for better responsiveness */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 20px;
+                margin-bottom: 40px;
+            }
+            
+            .transparent-button {
+                height: 60px;
+            }
+            
+            .transparent-button-text {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+                margin-bottom: 30px;
+            }
+            
+            .transparent-button {
+                height: 55px;
+            }
+            
+            .transparent-button-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background-image"></div>
+        <div class="overlay"></div>
+        
+        <div class="content-container">
+            <h1 class="title">Welcome to Agastya</h1>
+            <h2 class="subtitle">Please select your role</h2>
+            
+            <div class="button-wrapper">
+                <div class="transparent-button admin-button" id="adminButton">
+                    <span class="transparent-button-text">I am an Admin</span>
+                </div>
+                
+                <div class="transparent-button user-button" id="userButton">
+                    <span class="transparent-button-text">I am a User</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to buttons
+            document.getElementById('adminButton').addEventListener('click', function() {
+                // Navigate to login page with admin role
+                window.location.href = 'login.html?role=Admin';
+            });
+            
+            document.getElementById('userButton').addEventListener('click', function() {
+                // Navigate to login page with user role
+                window.location.href = 'login.html?role=User';
+            });
+        });
+    </script>
+</body>
+</html>

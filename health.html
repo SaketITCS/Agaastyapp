@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Safety Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f9f7;
+        }
+        .hero-header {
+            background-color: #83A481;
+            color: white;
+            padding: 60px 20px 30px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .emergency-panel {
+            margin-top: -25px;
+            z-index: 1;
+            position: relative;
+        }
+        .emergency-button {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .quick-action-card, 
+        .alert-card, 
+        .equipment-card,
+        .contact-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        .alert-card {
+            border-left: 4px solid;
+        }
+        .call-button {
+            background-color: #83A481;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .quick-action-card, 
+            .equipment-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Hero Header -->
+        <div class="hero-header text-white">
+            <div class="container">
+                <h1 class="display-5 fw-bold mb-2">Site Safety</h1>
+                <p class="mb-3">Ensuring Safe Construction</p>
+                <div class="d-flex align-items-center">
+                    <span class="status-dot"></span>
+                    <span>Site Status: Active</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Panel -->
+        <div class="container emergency-panel">
+            <button class="btn emergency-button w-100 py-3">
+                <span class="fs-4 me-2">⚡</span> Emergency SOS
+            </button>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="container mt-4">
+            <h2 class="h4 mb-3">Quick Actions</h2>
+            <div class="row">
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="quick-action-card text-center p-3">
+                        <div class="fs-3 mb-2">⚠️</div>
+                        <div class="fw-bold">Report Hazard</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="quick-action-card text-center p-3">
+                        <div class="fs-3 mb-2">🚑</div>
+                        <div class="fw-bold">First Aid</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="quick-action-card text-center p-3">
+                        <div class="fs-3 mb-2">📋</div>
+                        <div class="fw-bold">Daily Checklist</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="quick-action-card text-center p-3">
+                        <div class="fs-3 mb-2">📚</div>
+                        <div class="fw-bold">Safety Guides</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Alerts -->
+        <div class="container mt-4">
+            <h2 class="h4 mb-3">Current Alerts</h2>
+            <div class="alert-card border-danger mb-3">
+                <div class="d-flex align-items-center">
+                    <div class="bg-danger text-white px-2 py-1 m-3 rounded">High</div>
+                    <div>Crane operation in progress</div>
+                </div>
+            </div>
+            <div class="alert-card border-warning mb-3">
+                <div class="d-flex align-items-center">
+                    <div class="bg-warning text-white px-2 py-1 m-3 rounded">Medium</div>
+                    <div>Strong winds expected</div>
+                </div>
+            </div>
+            <div class="alert-card border-success mb-3">
+                <div class="d-flex align-items-center">
+                    <div class="bg-success text-white px-2 py-1 m-3 rounded">Low</div>
+                    <div>Equipment inspection due</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety Equipment Check -->
+        <div class="container mt-4">
+            <h2 class="h4 mb-3">Required Safety Equipment</h2>
+            <div class="row">
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="equipment-card text-center p-3">
+                        <div class="bg-success rounded mb-2" style="height: 4px; width: 40px; margin: 0 auto;"></div>
+                        <div class="fw-bold mb-1">Hard Hat</div>
+                        <div class="text-muted small">Required</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="equipment-card text-center p-3">
+                        <div class="bg-success rounded mb-2" style="height: 4px; width: 40px; margin: 0 auto;"></div>
+                        <div class="fw-bold mb-1">Safety Boots</div>
+                        <div class="text-muted small">Required</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="equipment-card text-center p-3">
+                        <div class="bg-success rounded mb-2" style="height: 4px; width: 40px; margin: 0 auto;"></div>
+                        <div class="fw-bold mb-1">Safety Vest</div>
+                        <div class="text-muted small">Required</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="equipment-card text-center p-3">
+                        <div class="bg-success rounded mb-2" style="height: 4px; width: 40px; margin: 0 auto;"></div>
+                        <div class="fw-bold mb-1">Gloves</div>
+                        <div class="text-muted small">Required</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="equipment-card text-center p-3">
+                        <div class="bg-warning rounded mb-2" style="height: 4px; width: 40px; margin: 0 auto;"></div>
+                        <div class="fw-bold mb-1">Goggles</div>
+                        <div class="text-muted small">Recommended</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="equipment-card text-center p-3">
+                        <div class="bg-secondary rounded mb-2" style="height: 4px; width: 40px; margin: 0 auto;"></div>
+                        <div class="fw-bold mb-1">Ear Protection</div>
+                        <div class="text-muted small">Situational</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="container mt-4 mb-5">
+            <h2 class="h4 mb-3">Emergency Contacts</h2>
+            <div class="contact-card p-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">Site Supervisor</div>
+                        <div class="text-muted">555-0123</div>
+                    </div>
+                    <button class="btn call-button">Call</button>
+                </div>
+            </div>
+            <div class="contact-card p-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">Emergency Services</div>
+                        <div class="text-muted">911</div>
+                    </div>
+                    <button class="btn call-button">Call</button>
+                </div>
+            </div>
+            <div class="contact-card p-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">Safety Officer</div>
+                        <div class="text-muted">555-0124</div>
+                    </div>
+                    <button class="btn call-button">Call</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

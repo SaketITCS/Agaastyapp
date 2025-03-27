@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGASTYA Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #83A481;
+            --secondary: #A4BDAB;
+            --background: #F5F5F5;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+        
+        body {
+            background-color: var(--background);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background-color: var(--primary);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding: 16px;
+        }
+        
+        .header-title {
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .profile-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+        
+        .profile-name {
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .registration-date {
+            color: var(--primary);
+            font-size: 14px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-title {
+            color: var(--text-light);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .work-section {
+            background-color: white;
+            border-radius: 12px;
+            margin-top: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .task-item {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .task-title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .task-status {
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        .quick-action-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .quick-action-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .quick-action-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .quick-action-text {
+            color: var(--text-dark);
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .bottom-nav {
+            background-color: white;
+            padding: 16px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .nav-item {
+            text-align: center;
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-text {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+        
+        .active-nav {
+            background-color: var(--primary);
+            border-radius: 8px;
+        }
+        
+        .active-nav .nav-text {
+            color: white;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        
+        .slide-up {
+            transform: translateY(100px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards;
+        }
+        
+        .scale-in {
+            transform: scale(0.9);
+            animation: scaleIn 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes scaleIn {
+            to { transform: scale(1); }
+        }
+        
+        /* Add bottom padding to prevent content from being hidden behind fixed bottom nav */
+        .pb-bottom-nav {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-0 pb-bottom-nav">
+        <!-- Header -->
+        <div class="header fade-in d-flex justify-content-between align-items-center">
+            <button class="btn text-white">☰</button>
+            <div class="header-title">AGASTYA</div>
+            <button class="btn text-white">↻</button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Profile Section -->
+            <div class="profile-section slide-up d-flex align-items-center">
+                <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-image">
+                <div class="ms-3">
+                    <div class="profile-name">Manya Agrawal</div>
+                    <div class="registration-date">Admin No: 9878</div>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row mt-3 fade-in">
+                <div class="col-6">
+                    <div class="stat-card">
+                        <div class="stat-title">Attendance</div>
+                        <div class="stat-value" style="color: var(--primary);">86.21%</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-card">
+                        <div class="stat-title">Requests</div>
+                        <div class="stat-value" style="color: var(--secondary);">12</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Today's Work Section -->
+            <div class="work-section slide-up mt-3">
+                <div class="d-flex justify-content-between align-items-center p-3" id="workHeader">
+                    <div class="section-title">Today's Work</div>
+                    <div id="arrowIcon">▶</div>
+                </div>
+                
+                <div id="workDetails" class="p-3" style="display: none;">
+                    <div class="task-item" style="background-color: #FF6B6B;">
+                        <div class="task-title">Review Employee Reports</div>
+                        <div class="task-status">Pending</div>
+                    </div>
+                    <div class="task-item" style="background-color: var(--primary);">
+                        <div class="task-title">Update Department Policies</div>
+                        <div class="task-status">In Progress</div>
+                    </div>
+                    <div class="task-item" style="background-color: var(--secondary);">
+                        <div class="task-title">Schedule Team Meeting</div>
+                        <div class="task-status">Completed</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="mt-4">
+                <div class="section-title mb-3">Quick Actions</div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
+                            <div class="quick-action-icon">🏢</div>
+                            <div class="quick-action-text">Site Info</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);" id="attendanceAction">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-text">Attendance</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
+                            <div class="quick-action-icon">📅</div>
+                            <div class="quick-action-text">Calendar</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);">
+                            <div class="quick-action-icon">📈</div>
+                            <div class="quick-action-text">Reports</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
+                            <div class="quick-action-icon">✔️</div>
+                            <div class="quick-action-text">Tasks</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);">
+                            <div class="quick-action-icon">👥</div>
+                            <div class="quick-action-text">Team</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
+                            <div class="quick-action-icon">💼</div>
+                            <div class="quick-action-text">Meetings</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);">
+                            <div class="quick-action-icon">🤝</div>
+                            <div class="quick-action-text">Support</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
+                            <div class="quick-action-icon">⚙️</div>
+                            <div class="quick-action-text">Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav slide-up d-flex justify-content-around">
+            <div class="nav-item">
+                <div class="nav-icon">💼</div>
+                <div class="nav-text">Tasks</div>
+            </div>
+            <div class="nav-item active-nav px-3 py-1">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-text">Home</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div class="nav-text">Reports</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize elements after DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle work details
+            const workHeader = document.getElementById('workHeader');
+            const workDetails = document.getElementById('workDetails');
+            const arrowIcon = document.getElementById('arrowIcon');
+            
+            workHeader.addEventListener('click', function() {
+                if (workDetails.style.display === 'none') {
+                    workDetails.style.display = 'block';
+                    arrowIcon.textContent = '▼';
+                } else {
+                    workDetails.style.display = 'none';
+                    arrowIcon.textContent = '▶';
+                }
+            });
+            
+            // Navigate to admin dashboard when attendance is clicked
+            const attendanceAction = document.getElementById('attendanceAction');
+            attendanceAction.addEventListener('click', function() {
+                alert('Navigating to Admin Dashboard');
+                // In a real implementation, you would use:
+                // window.location.href = 'admin-dashboard.html';
+            });
+            
+            // Apply animations with slight delays for better visual effect
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                el.style.animationDelay = (index * 0.2) + 's';
+            });
+            
+            const slideElements = document.querySelectorAll('.slide-up');
+            slideElements.forEach((el, index) => {
+                el.style.animationDelay = (0.2 + index * 0.2) + 's';
+            });
+            
+            const scaleElements = document.querySelectorAll('.scale-in');
+            scaleElements.forEach((el, index) => {
+                el.style.animationDelay = (0.3 + index * 0.1) + 's';
+            });
+        });
+    </script>
+</body>
+</html>

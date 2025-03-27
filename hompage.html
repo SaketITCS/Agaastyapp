@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGASTYA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #83A481;
+            --secondary: #A4BDAB;
+            --background: #F5F5F5;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+        
+        body {
+            background-color: var(--background);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background-color: var(--primary);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            color: var(--white);
+            padding: 16px;
+        }
+        
+        .profile-section {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 16px;
+        }
+        
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+        
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        
+        .quick-action-item {
+            border-radius: 12px;
+            color: var(--white);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .quick-action-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .quick-action-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .quick-action-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .bottom-nav {
+            background-color: var(--white);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            color: var(--text-light);
+            text-align: center;
+            transition: color 0.3s;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s;
+        }
+        
+        .scale-in {
+            animation: scaleIn 0.8s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100px); }
+            to { transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
+        }
+        
+        .main-content {
+            margin-bottom: 80px; /* Space for fixed bottom nav */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header d-flex justify-content-between align-items-center fade-in">
+        <button class="btn text-white" onclick="window.history.back()">
+            <i class="bi bi-arrow-left fs-4"></i>
+        </button>
+        <h1 class="fs-4 fw-bold m-0">AGASTYA</h1>
+        <button class="btn text-white">
+            <i class="bi bi-arrow-clockwise fs-4"></i>
+        </button>
+    </div>
+
+    <div class="container main-content">
+        <!-- Profile Section -->
+        <div class="profile-section d-flex align-items-center p-3 slide-up">
+            <img src="https://via.placeholder.com/150" alt="Profile" class="profile-image">
+            <div class="ms-3">
+                <h2 class="fs-5 fw-bold text-dark mb-1">Saket Maheshwari</h2>
+                <p class="text-primary m-0">User ID: 12345</p>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row g-2 mt-3 fade-in">
+            <div class="col-6">
+                <div class="stat-card p-3">
+                    <p class="text-secondary mb-2">Attendance</p>
+                    <p class="fs-3 fw-bold text-primary m-0">79%</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="stat-card p-3">
+                    <p class="text-secondary mb-2">Notifications</p>
+                    <p class="fs-3 fw-bold" style="color: var(--secondary)">3</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="mt-4">
+            <h2 class="fs-5 fw-bold mb-3">Quick Actions</h2>
+            <div class="row g-2 scale-in" id="quickActions">
+                <!-- Quick actions will be populated here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav d-flex justify-content-around p-3 slide-up">
+        <a href="index.html" class="nav-item text-decoration-none">
+            <div class="nav-icon">🏠</div>
+            <div class="small">Home</div>
+        </a>
+        <a href="profile.html" class="nav-item text-decoration-none">
+            <div class="nav-icon">👤</div>
+            <div class="small">Profile</div>
+        </a>
+        <a href="settings.html" class="nav-item text-decoration-none">
+            <div class="nav-icon">⚙️</div>
+            <div class="small">Settings</div>
+        </a>
+    </div>
+
+    <!-- Bootstrap & jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Quick actions data with HTML page links
+            const quickActions = [
+                { id: '1', title: 'Jobs Posting', icon: '💼', page: 'Jobposting.html' },
+                { id: '2', title: 'Government Schemes', icon: '🏛️', page: 'GovSchemes.html' },
+                { id: '3', title: 'Issue Items', icon: '🏷️', page: 'issue-items.html' },
+                { id: '4', title: 'Health and Safety', icon: '🏥', page: 'health.html' },
+                { id: '5', title: 'Rewards and Offers', icon: '🎁', page: 'rewards-offers.html' },
+                { id: '6', title: 'Feedback/Suggestions', icon: '📝', page: 'feedback.html' },
+                { id: '7', title: 'Game', icon: '🎮', page: 'games.html' },
+                { id: '8', title: 'Entertainment', icon: '🎬', page: 'entertainment.html' },
+                { id: '9', title: 'Emergency Alert', icon: '🚨', page: 'emergency-alert.html' },
+                { id: '10', title: 'Grocery Store', icon: '🛒', page: 'grocery-store.html' },
+                { id: '11', title: 'Attendance', icon: '📊', page: 'attendance.html' },
+            ];
+            
+            // Populate quick actions
+            const quickActionsContainer = $('#quickActions');
+            
+            quickActions.forEach(item => {
+                const backgroundColor = item.id % 2 === 0 ? 'var(--secondary)' : 'var(--primary)';
+                
+                const actionItem = `
+                    <div class="col-4">
+                        <a href="${item.page}" class="text-decoration-none">
+                            <div class="quick-action-item d-flex flex-column align-items-center p-3" style="background-color: ${backgroundColor}">
+                                <div class="quick-action-icon">${item.icon}</div>
+                                <div class="quick-action-text text-center">${item.title}</div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                
+                quickActionsContainer.append(actionItem);
+            });
+        });
+    </script>
+</body>
+</html>

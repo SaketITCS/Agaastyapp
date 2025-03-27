@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Construction"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "APP"
+	}
+}

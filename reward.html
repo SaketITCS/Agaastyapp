@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards and Offers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #83A481;
+            color: white;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            padding: 20px;
+        }
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+        }
+        .verified-badge {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background-color: #FFD700;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+        .role-badge {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 4px 12px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .achievement-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .progress-bar-custom {
+            background-color: #A4BDAB;
+        }
+        .reward-button {
+            border: 2px solid #83A481;
+            background-color: white;
+            color: #83A481;
+        }
+        .reward-button.selected {
+            background-color: #83A481;
+            color: white;
+        }
+        .coupon-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .stat-card {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="header">
+            <div class="container">
+                <div class="row align-items-center mb-4">
+                    <div class="col-auto position-relative">
+                        <img src="images/Aryan.png" alt="Profile Picture" class="profile-pic">
+                        <div class="verified-badge">✓</div>
+                    </div>
+                    <div class="col">
+                        <h2 class="mb-2">Aryan Daksh</h2>
+                        <div class="role-badge">
+                            <span class="me-2">👷‍♂️</span>
+                            Senior Construction Specialist
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row">
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="fs-3 mb-2">📊</div>
+                            <div class="fw-bold">90%</div>
+                            <div class="text-muted small">Attendance</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="fs-3 mb-2">📅</div>
+                            <div class="fw-bold">126</div>
+                            <div class="text-muted small">Work Days</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="fs-3 mb-2">🏆</div>
+                            <div class="fw-bold">15</div>
+                            <div class="text-muted small">Rewards</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="container mt-4">
+            <div class="d-flex align-items-center mb-3">
+                <span class="fs-3 me-2">🏆</span>
+                <h3 class="mb-0">Your Achievements</h3>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="achievement-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="fs-3 me-2">🎯</span>
+                            <h5 class="mb-0">Perfect Attendance</h5>
+                        </div>
+                        <p class="text-muted small mb-2">Consistently present and punctual</p>
+                        <div class="progress mb-1" style="height: 6px;">
+                            <div class="progress-bar progress-bar-custom" role="progressbar" style="width: 90%"></div>
+                        </div>
+                        <div class="text-end small text-muted">90%</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="achievement-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="fs-3 me-2">🛡️</span>
+                            <h5 class="mb-0">Safety Champion</h5>
+                        </div>
+                        <p class="text-muted small mb-2">Excellence in safety protocols</p>
+                        <div class="progress mb-1" style="height: 6px;">
+                            <div class="progress-bar progress-bar-custom" role="progressbar" style="width: 95%"></div>
+                        </div>
+                        <div class="text-end small text-muted">95%</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="achievement-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="fs-3 me-2">⭐</span>
+                            <h5 class="mb-0">Skill Master</h5>
+                        </div>
+                        <p class="text-muted small mb-2">Outstanding technical expertise</p>
+                        <div class="progress mb-1" style="height: 6px;">
+                            <div class="progress-bar progress-bar-custom" role="progressbar" style="width: 85%"></div>
+                        </div>
+                        <div class="text-end small text-muted">85%</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="achievement-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="fs-3 me-2">👥</span>
+                            <h5 class="mb-0">Team Leader</h5>
+                        </div>
+                        <p class="text-muted small mb-2">Exceptional team collaboration</p>
+                        <div class="progress mb-1" style="height: 6px;">
+                            <div class="progress-bar progress-bar-custom" role="progressbar" style="width: 92%"></div>
+                        </div>
+                        <div class="text-end small text-muted">92%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rewards Section -->
+        <div class="container mt-4">
+            <div class="d-flex align-items-center mb-3">
+                <span class="fs-3 me-2">🎁</span>
+                <h3 class="mb-0">Claim Your Reward</h3>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">👑</span>
+                        <p class="mb-0">Top 10% Performer! Choose your reward:</p>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <button class="btn reward-button w-100" id="shoppingVoucher">
+                                <div class="d-flex align-items-center">
+                                    <span class="fs-3 me-3">🛍️</span>
+                                    <div class="flex-grow-1">
+                                        <div>Shopping Voucher</div>
+                                        <div class="fw-bold">₹1000</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn reward-button w-100" id="mobileRecharge">
+                                <div class="d-flex align-items-center">
+                                    <span class="fs-3 me-3">📱</span>
+                                    <div class="flex-grow-1">
+                                        <div>Mobile Recharge</div>
+                                        <div class="fw-bold">₹500</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Coupon Display (Hidden by default) -->
+                    <div class="coupon-card mt-3 d-none" id="couponCard">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="fs-3 me-2">🎫</span>
+                            <h4 class="mb-0">Your Reward is Ready!</h4>
+                        </div>
+                        <div class="text-center">
+                            <div class="fs-3 text-success mb-3" id="couponCode"></div>
+                            <hr>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="fs-3 me-2">ℹ️</span>
+                                <p class="mb-0 text-muted" id="couponInstructions"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quote Section -->
+        <div class="container text-center mb-5">
+            <blockquote class="blockquote">
+                <p class="mb-0 fst-italic text-muted">
+                    <span class="text-success me-2">"</span>
+                    Building excellence, one day at a time
+                    <span class="text-success ms-2">"</span>
+                </p>
+            </blockquote>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('shoppingVoucher').addEventListener('click', function() {
+            generateCoupon('SHOPPING', '🛍️', 'Shopping Voucher');
+        });
+
+        document.getElementById('mobileRecharge').addEventListener('click', function() {
+            generateCoupon('RECHARGE', '📱', 'Mobile Recharge');
+        });
+
+        function generateCoupon(type, emoji, title) {
+            // Reset buttons
+            document.getElementById('shoppingVoucher').classList.remove('selected');
+            document.getElementById('mobileRecharge').classList.remove('selected');
+
+            // Select clicked button
+            event.currentTarget.classList.add('selected');
+
+            // Generate coupon
+            const coupon = `${type}-${Math.random().toString(36).substring(7).toUpperCase()}`;
+            
+            // Show coupon card
+            const couponCard = document.getElementById('couponCard');
+            couponCard.classList.remove('d-none');
+
+            // Set coupon details
+            document.getElementById('couponCode').textContent = coupon;
+            document.getElementById('couponInstructions').textContent = 
+                `Present this code to claim your ${title.toLowerCase()} reward`;
+        }
+    </script>
+</body>
+</html>

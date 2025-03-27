@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs in Delhi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F5F5F5;
+        }
+        .job-card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(131, 164, 129, 0.1);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .job-card:hover {
+            transform: scale(1.02);
+        }
+        .job-type-tag {
+            background-color: #A4BDAB;
+            color: #FFFFFF;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .job-title {
+            color: #333333;
+            font-weight: bold;
+        }
+        .job-description {
+            color: #666666;
+        }
+        .apply-btn {
+            background-color: #83A481;
+            border-color: #83A481;
+        }
+        .apply-btn:hover {
+            background-color: #6A9367;
+            border-color: #6A9367;
+        }
+        .header {
+            background-color: #83A481;
+            color: white;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h2">Jobs in Delhi</h1>
+            <button class="btn btn-light" id="filterBtn">Filter</button>
+        </div>
+    </div>
+
+    <div class="container mt-4" id="jobsContainer">
+        <!-- Jobs will be dynamically added here -->
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const jobs = [
+            {
+                id: '1',
+                title: 'Construction Worker for Building Site A',
+                location: 'Delhi',
+                description: 'Looking for a construction worker for a building site.',
+                salary: '₹15,000 - ₹20,000',
+                type: 'Full Time'
+            },
+            {
+                id: '2',
+                title: 'Electrician for Residential Area',
+                location: 'Delhi',
+                description: 'Need an electrician for residential wiring and repairs.',
+                salary: '₹18,000 - ₹25,000',
+                type: 'Contract'
+            },
+            {
+                id: '3',
+                title: 'Plumber for Office Building',
+                location: 'Delhi',
+                description: 'Searching for a plumber to fix issues in an office building.',
+                salary: '₹16,000 - ₹22,000',
+                type: 'Full Time'
+            },
+            {
+                id: '4',
+                title: 'Driver for Delivery Services',
+                location: 'Delhi',
+                description: 'Hiring a driver for deliveries in Delhi.',
+                salary: '₹14,000 - ₹18,000',
+                type: 'Part Time'
+            },
+            {
+                id: '5',
+                title: 'Security Guard for Residential Complex',
+                location: 'Delhi',
+                description: 'Security guard required for a residential area in Delhi.',
+                salary: '₹12,000 - ₹15,000',
+                type: 'Full Time'
+            }
+        ];
+
+        function renderJobs() {
+            const jobsContainer = document.getElementById('jobsContainer');
+            jobsContainer.innerHTML = ''; // Clear existing jobs
+
+            jobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card card mb-3 p-3 animate__animated animate__fadeIn';
+                jobCard.innerHTML = `
+                    <div class="job-type-tag">${job.type}</div>
+                    <h5 class="job-title">${job.title}</h5>
+                    <p class="job-description">${job.description}</p>
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <span>📍 ${job.location}</span>
+                        </div>
+                        <div>
+                            <span>💰 ${job.salary}</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary apply-btn w-100" onclick="handleApply('${job.title}', '${job.salary}', '${job.type}')">
+                        Apply Now
+                    </button>
+                `;
+                jobsContainer.appendChild(jobCard);
+            });
+        }
+
+        function handleApply(title, salary, type) {
+            const confirmApply = confirm(`Would you like to apply for:\n${title}?\n\nSalary: ${salary}\nType: ${type}`);
+            
+            if (confirmApply) {
+                alert('Your application has been submitted successfully!');
+            }
+        }
+
+        // Add filter button event listener
+        document.getElementById('filterBtn').addEventListener('click', () => {
+            alert('Filter functionality will be implemented in future updates.');
+        });
+
+        // Render jobs on page load
+        document.addEventListener('DOMContentLoaded', renderJobs);
+    </script>
+</body>
+</html>
