@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Memory Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #A4BDAB;
+            overscroll-behavior: contain;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .game-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+        .game-card {
+            aspect-ratio: 1/1;
+            background-color: #83A481;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .game-card.flipped {
+            background-color: #A4BDAB;
+        }
+        .game-card.matched {
+            background-color: #228B22;
+            pointer-events: none;
+        }
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #83A481;
+        }
+        .modal-custom {
+            background-color: rgba(83, 164, 129, 0.9);
+            color: #F5DEB3;
+        }
+        .modal-custom .modal-content {
+            background-color: transparent;
+            border: none;
+        }
+        .btn-custom {
+            background-color: #83A481;
+            color: #F5DEB3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container game-container">
+        <h1 class="text-center my-4 text-success">Memory Game</h1>
+        
+        <div class="game-stats">
+            <div>Moves: <span id="movesCount">0</span></div>
+            <div>Time: <span id="timeLeft">20:00</span></div>
+        </div>
+
+        <div class="card-grid" id="gameGrid"></div>
+
+        <div class="text-center mt-3">
+            <button id="newGameBtn" class="btn btn-custom">New Game</button>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal fade" id="gameOverModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-custom text-center p-4">
+                <h2 id="modalTitle">Game Over</h2>
+                <p id="modalMessage">You have reached your limits! Try again tomorrow.</p>
+                <button class="btn btn-light mt-3" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completion Modal -->
+    <div class="modal fade" id="completionModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-custom text-center p-4">
+                <h2>Congratulations! 🎉</h2>
+                <p id="completionMessage">Completed in 0 moves!</p>
+                <button class="btn btn-light mt-3" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Game Configuration
+        const CARD_PAIRS = ['🎮', '🎲', '🎯', '🎪', '🎨', '🎭'];
+        const TIMER_DURATION = 20 * 60; // 20 minutes in seconds
+
+        // Game State
+        class MemoryGame {
+            constructor() {
+                this.cards = [];
+                this.flipped = [];
+                this.matched = [];
+                this.moves = 0;
+                this.firstCard = null;
+                this.canFlip = true;
+                this.gameComplete = false;
+                this.timeLeft = TIMER_DURATION;
+                this.isTimeUp = false;
+                this.timer = null;
+
+                this.initializeDOM();
+                this.setupEventListeners();
+                this.initializeGame();
+            }
+
+            initializeDOM() {
+                this.gameGrid = document.getElementById('gameGrid');
+                this.movesElement = document.getElementById('movesCount');
+                this.timeLeftElement = document.getElementById('timeLeft');
+                this.newGameBtn = document.getElementById('newGameBtn');
+                this.gameOverModal = new bootstrap.Modal(document.getElementById('gameOverModal'));
+                this.completionModal = new bootstrap.Modal(document.getElementById('completionModal'));
+            }
+
+            setupEventListeners() {
+                this.newGameBtn.addEventListener('click', () => this.initializeGame());
+            }
+
+            initializeGame() {
+                // Prepare full set of cards (duplicating to create pairs)
+                this.cards = [...CARD_PAIRS, ...CARD_PAIRS];
+                this.shuffleCards();
+
+                // Reset game state
+                this.flipped = new Array(this.cards.length).fill(false);
+                this.matched = new Array(this.cards.length).fill(false);
+                this.moves = 0;
+                this.firstCard = null;
+                this.canFlip = true;
+                this.gameComplete = false;
+                this.isTimeUp = false;
+                this.timeLeft = TIMER_DURATION;
+
+                // Clear previous timer and start new one
+                if (this.timer) clearInterval(this.timer);
+                this.startTimer();
+
+                // Update UI
+                this.movesElement.textContent = '0';
+                this.renderCards();
+            }
+
+            shuffleCards() {
+                for (let i = this.cards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+                }
+            }
+
+            renderCards() {
+                this.gameGrid.innerHTML = '';
+                this.cards.forEach((card, index) => {
+                    const cardElement = document.createElement('div');
+                    cardElement.classList.add('game-card');
+                    cardElement.dataset.index = index;
+                    cardElement.textContent = this.flipped[index] || this.matched[index] ? card : '?';
+                    
+                    if (this.flipped[index]) cardElement.classList.add('flipped');
+                    if (this.matched[index]) cardElement.classList.add('matched');
+                    
+                    cardElement.addEventListener('click', () => this.handleCardPress(index));
+                    this.gameGrid.appendChild(cardElement);
+                });
+            }
+
+            startTimer() {
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    this.updateTimerDisplay();
+
+                    if (this.timeLeft <= 0) {
+                        this.handleTimeUp();
+                    }
+                }, 1000);
+            }
+
+            updateTimerDisplay() {
+                const minutes = Math.floor(this.timeLeft / 60);
+                const seconds = this.timeLeft % 60;
+                this.timeLeftElement.textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            handleCardPress(index) {
+                if (!this.canFlip || this.flipped[index] || this.matched[index] || this.isTimeUp) return;
+
+                this.flipped[index] = true;
+                this.renderCards();
+
+                if (this.firstCard === null) {
+                    this.firstCard = index;
+                } else {
+                    this.canFlip = false;
+                    this.moves++;
+                    this.movesElement.textContent = this.moves;
+
+                    if (this.cards[this.firstCard] === this.cards[index]) {
+                        this.matched[this.firstCard] = true;
+                        this.matched[index] = true;
+                        this.firstCard = null;
+                        this.canFlip = true;
+
+                        this.renderCards();
+
+                        if (this.matched.every(m => m)) {
+                            this.handleGameCompletion();
+                        }
+                    } else {
+                        setTimeout(() => {
+                            this.flipped[this.firstCard] = false;
+                            this.flipped[index] = false;
+                            this.firstCard = null;
+                            this.canFlip = true;
+                            this.renderCards();
+                        }, 1000);
+                    }
+                }
+            }
+
+            handleTimeUp() {
+                clearInterval(this.timer);
+                this.isTimeUp = true;
+                this.gameOverModal.show();
+            }
+
+            handleGameCompletion() {
+                clearInterval(this.timer);
+                const completionMessage = document.getElementById('completionMessage');
+                completionMessage.textContent = `Completed in ${this.moves} moves!`;
+                this.completionModal.show();
+            }
+        }
+
+        // Initialize the game when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new MemoryGame();
+        });
+    </script>
+</body>
+</html>
