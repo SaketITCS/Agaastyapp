@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Alert</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s ease;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            width: 80%;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #FFFF00;
+            color: #000000;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin: 0 auto 20px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .button.stop-button {
+            background-color: #008000;
+            color: #FFFFFF;
+        }
+
+        .status-text {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .active-alarm {
+            background-color: #FF6347;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse-animation {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="emergencyContainer">
+        <h1 class="title">Emergency Alarm</h1>
+        <p class="description">Press the button below to trigger an emergency alarm!</p>
+        
+        <button id="emergencyButton" class="button">
+            Trigger Emergency
+        </button>
+    </div>
+
+    <script>
+        const container = document.getElementById('emergencyContainer');
+        const emergencyButton = document.getElementById('emergencyButton');
+        let isAlarmActive = false;
+        let vibrationInterval;
+
+        function simulateVibration() {
+            // Simulate vibration for browsers that don't support vibration API
+            let count = 0;
+            vibrationInterval = setInterval(() => {
+                document.body.style.transform = count % 2 === 0 ? 'translateX(-5px)' : 'translateX(5px)';
+                count++;
+                if (count > 10) {
+                    document.body.style.transform = 'translateX(0)';
+                    clearInterval(vibrationInterval);
+                }
+            }, 50);
+        }
+
+        function handleEmergencyButtonPress() {
+            // Check if Vibration API is supported
+            if ('vibrate' in navigator) {
+                navigator.vibrate([0, 1000, 500, 1000]);
+            } else {
+                simulateVibration();
+            }
+
+            // Change UI state
+            isAlarmActive = true;
+            document.body.classList.add('active-alarm');
+            emergencyButton.classList.add('stop-button');
+            emergencyButton.textContent = 'Stop Alarm';
+            
+            // Add status text
+            const statusText = document.createElement('p');
+            statusText.classList.add('status-text', 'pulse-animation');
+            statusText.textContent = 'Emergency in progress! Stay alert!';
+            container.appendChild(statusText);
+
+            // Show browser alert
+            alert('Emergency Triggered\nPlease stay safe and alert!');
+        }
+
+        function handleStopAlarm() {
+            // Stop vibration if supported
+            if ('vibrate' in navigator) {
+                navigator.vibrate(0);
+            } else {
+                clearInterval(vibrationInterval);
+            }
+
+            // Reset UI state
+            isAlarmActive = false;
+            document.body.classList.remove('active-alarm');
+            emergencyButton.classList.remove('stop-button');
+            emergencyButton.textContent = 'Trigger Emergency';
+            
+            // Remove status text
+            const statusText = container.querySelector('.status-text');
+            if (statusText) {
+                container.removeChild(statusText);
+            }
+        }
+
+        emergencyButton.addEventListener('click', () => {
+            if (isAlarmActive) {
+                handleStopAlarm();
+            } else {
+                handleEmergencyButtonPress();
+            }
+        });
+    </script>
+</body>
+</html>
