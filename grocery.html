@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agasthya Grocery Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F5F7FA;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #83A481;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 25px;
+        }
+        .category-scroll {
+            white-space: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .category-btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #F5F5F5;
+            color: #666666;
+            border: 1px solid #E0E0E0;
+        }
+        .category-btn.active {
+            background-color: #83A481;
+            color: #FFFFFF;
+        }
+        .item-card {
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #F0F0F0;
+        }
+        .challan {
+            background-color: #FFFFFF;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .challan-header {
+            border-bottom: 2px solid #83A481;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-btn {
+            background-color: #83A481;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="display-6">AGASTHYA GROCERY</h1>
+            <p>Quality Products at Best Prices</p>
+        </div>
+
+        <!-- Search -->
+        <div class="container mt-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+        </div>
+
+        <!-- Customer Details -->
+        <div class="container mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <input type="text" id="customerName" class="form-control mb-2" placeholder="Your Name">
+                    <input type="tel" id="customerPhone" class="form-control mb-2" placeholder="Phone Number">
+                    
+                    <div class="btn-group w-100" role="group">
+                        <button type="button" class="btn btn-outline-success payment-mode" data-mode="Challan">Challan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="container mt-3 category-scroll">
+            <button class="category-btn active" data-category="Daily Essentials">Daily Essentials</button>
+            <button class="category-btn" data-category="Snacks & Beverages">Snacks & Beverages</button>
+            <button class="category-btn" data-category="Kitchen Items">Kitchen Items</button>
+            <button class="category-btn" data-category="Personal Care">Personal Care</button>
+            <button class="category-btn" data-category="Household">Household</button>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="container mt-3" id="itemsGrid"></div>
+
+        <!-- Cart Section -->
+        <div class="container mt-3" id="cartSection" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Selected Items</h5>
+                </div>
+                <div class="card-body" id="cartItems"></div>
+            </div>
+        </div>
+
+        <!-- Challan Section -->
+        <div class="container mt-3" id="challanSection" style="display: none;"></div>
+    </div>
+
+    <script>
+        const items = {
+            'Daily Essentials': [
+                { id: 'd1', name: 'Toor Dal (1kg)', price: 140, stock: true },
+                { id: 'd2', name: 'Wheat Flour (5kg)', price: 250, stock: true },
+                { id: 'd3', name: 'Sunflower Oil (1L)', price: 180, stock: true },
+                { id: 'd4', name: 'Basmati Rice (5kg)', price: 450, stock: true },
+                { id: 'd5', name: 'Sugar (1kg)', price: 55, stock: true },
+            ],
+            'Snacks & Beverages': [
+                { id: 's1', name: 'Tea Powder (250g)', price: 120, stock: true },
+                { id: 's2', name: 'Coffee Powder (250g)', price: 150, stock: true },
+                { id: 's3', name: 'Biscuits Pack', price: 30, stock: true },
+                { id: 's4', name: 'Chips Pack', price: 20, stock: true },
+            ],
+            'Kitchen Items': [
+                { id: 'k1', name: 'Spice Box', price: 350, stock: true },
+                { id: 'k2', name: 'Storage Containers', price: 550, stock: true },
+                { id: 'k3', name: 'Kitchen Towels', price: 120, stock: true },
+            ],
+            'Personal Care': [
+                { id: 'p1', name: 'Hand Wash', price: 99, stock: true },
+                { id: 'p2', name: 'Body Soap', price: 45, stock: true },
+                { id: 'p3', name: 'Toothpaste', price: 85, stock: true },
+            ],
+            'Household': [
+                { id: 'h1', name: 'Floor Cleaner (1L)', price: 160, stock: true },
+                { id: 'h2', name: 'Glass Cleaner', price: 90, stock: true },
+                { id: 'h3', name: 'Garbage Bags', price: 70, stock: true },
+            ]
+        };
+
+        let selectedItems = [];
+        let activeCategory = 'Daily Essentials';
+        let paymentMode = '';
+
+        function renderItems(category, searchQuery = '') {
+            const itemsGrid = document.getElementById('itemsGrid');
+            itemsGrid.innerHTML = '';
+
+            const filteredItems = items[category].filter(item => 
+                item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            filteredItems.forEach(item => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'card item-card';
+                itemCard.innerHTML = `
+                    <div class="card-body text-center">
+                        <h5 class="card-title">${item.name}</h5>
+                        <p class="card-text text-success">₹${item.price}</p>
+                        <button class="btn btn-success add-item" data-id="${item.id}">ADD</button>
+                    </div>
+                `;
+                itemsGrid.appendChild(itemCard);
+            });
+
+            document.querySelectorAll('.add-item').forEach(button => {
+                button.addEventListener('click', () => addItem(button.dataset.id));
+            });
+        }
+
+        function addItem(itemId) {
+            const item = Object.values(items).flat().find(i => i.id === itemId);
+            const existingItemIndex = selectedItems.findIndex(i => i.id === itemId);
+
+            if (existingItemIndex > -1) {
+                selectedItems[existingItemIndex].quantity++;
+            } else {
+                selectedItems.push({ ...item, quantity: 1 });
+            }
+
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartSection = document.getElementById('cartSection');
+            const cartItems = document.getElementById('cartItems');
+            
+            if (selectedItems.length === 0) {
+                cartSection.style.display = 'none';
+                return;
+            }
+
+            cartSection.style.display = 'block';
+            cartItems.innerHTML = '';
+
+            selectedItems.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <span>${item.name}</span>
+                    <div class="quantity-control">
+                        <button class="btn btn-sm quantity-btn decrease-qty" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="btn btn-sm quantity-btn increase-qty" data-id="${item.id}">+</button>
+                        <button class="btn btn-sm btn-danger ms-2 remove-item" data-id="${item.id}">×</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+
+            attachCartEventListeners();
+            generateChallan();
+        }
+
+        function attachCartEventListeners() {
+            document.querySelectorAll('.decrease-qty').forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemId = button.dataset.id;
+                    const index = selectedItems.findIndex(item => item.id === itemId);
+                    if (index > -1) {
+                        selectedItems[index].quantity--;
+                        if (selectedItems[index].quantity === 0) {
+                            selectedItems.splice(index, 1);
+                        }
+                        updateCart();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.increase-qty').forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemId = button.dataset.id;
+                    const index = selectedItems.findIndex(item => item.id === itemId);
+                    if (index > -1) {
+                        selectedItems[index].quantity++;
+                        updateCart();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemId = button.dataset.id;
+                    const index = selectedItems.findIndex(item => item.id === itemId);
+                    if (index > -1) {
+                        selectedItems.splice(index, 1);
+                        updateCart();
+                    }
+                });
+            });
+        }
+
+        function generateChallan() {
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+
+            if (!customerName || !customerPhone || selectedItems.length === 0 || !paymentMode) {
+                document.getElementById('challanSection').style.display = 'none';
+                return;
+            }
+
+            const challanSection = document.getElementById('challanSection');
+            challanSection.style.display = 'block';
+
+            const totalAmount = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString();
+            const challanNumber = `AG${date.replace(/\//g, '')}${Math.floor(Math.random() * 1000)}`;
+
+            challanSection.innerHTML = `
+                <div class="challan">
+                    <div class="challan-header text-center">
+                        <h2>AGASTHYA GROCERY</h2>
+                        <p>Payment Receipt</p>
+                        <small>Solan, Himachal Pradesh - 173212</small>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Bill No:</strong> ${challanNumber}
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong>Date & Time:</strong> ${date} ${time}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Customer:</strong> ${customerName}
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong>Phone:</strong> ${customerPhone}
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th class="text-end">Price</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${selectedItems.map(item => `
+                                <tr>
+                                    <td>${item.name}</td>
+                                    <td>${item.quantity}</td>
+                                    <td class="text-end">₹${item.price}</td>
+                                    <td class="text-end">₹${item.price * item.quantity}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Total Amount:</strong>
+                        </div>
+                        <div class="col-6 text-end text-success">
+                            <strong>₹${totalAmount}</strong>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col text-center text-success">
+                            <p>Thank you for shopping with us!</p>
+                            <small>Contact: +91 9012911789</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            renderItems(activeCategory);
+
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeCategory = btn.dataset.category;
+                    renderItems(activeCategory);
+                });
+            });
+
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                renderItems(activeCategory, e.target.value);
+            });
+
+            document.querySelectorAll('.payment-mode').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    paymentMode = btn.dataset.mode;
+                    generateChallan();
+                });
+            });
+
+            document.getElementById('customerName').addEventListener('input', generateChallan);
+            document.getElementById('customerPhone').addEventListener('input', generateChallan);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
