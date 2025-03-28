@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Movie Time</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F5F7F5;
+            font-family: Arial, sans-serif;
+        }
+        .header-container {
+            background-color: #A4BDAB;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 3px 4.65px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            color: white;
+        }
+        .language-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 3px 4.65px rgba(131, 164, 129, 0.1);
+            border: 1px solid rgba(164, 189, 171, 0.2);
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+        .language-card:hover {
+            transform: scale(0.98);
+        }
+        .language-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: rgba(164, 189, 171, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+        .language-name {
+            color: #83A481;
+            font-weight: bold;
+        }
+        .movie-count {
+            color: #A4BDAB;
+            font-size: 0.9rem;
+        }
+        .arrow-container {
+            background-color: #83A481;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .footer {
+            background-color: #F5F7F5;
+            padding: 20px;
+            text-align: center;
+            color: #83A481;
+        }
+        .movie-screen {
+            display: none;
+        }
+        .movie-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 3px 4.65px rgba(131, 164, 129, 0.1);
+            margin-bottom: 15px;
+        }
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #83A481;
+            color: white;
+            border: none;
+            z-index: 1000;
+        }
+        .genre-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 0 5px;
+        }
+        .genre-button.active {
+            background-color: #83A481;
+            border-color: #83A481;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Selection Screen -->
+    <div id="languageScreen" class="container-fluid p-0">
+        <!-- Header -->
+        <div class="header-container text-center text-white py-4">
+            <h4 class="text-white-50 mb-2">Welcome Back! 👋</h4>
+            <h1 class="display-5 fw-bold mb-2">Movie Time</h1>
+            <p class="text-white-50">Select your preferred language</p>
+        </div>
+
+        <!-- Language Cards -->
+        <div class="container mt-4 px-4" id="languageCardsContainer"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="mb-0">Time for some entertainment! 🍿</p>
+        </div>
+    </div>
+
+    <!-- Movie Screen -->
+    <div id="movieScreen" class="container-fluid p-0">
+        <div class="header-container position-relative">
+            <button id="backButton" class="btn back-btn">← Back</button>
+            <div class="text-center py-4">
+                <h1 class="display-5 fw-bold mb-2" id="languageTitle">Movies</h1>
+                <p class="text-white-50" id="languageSubtitle">English Cinema</p>
+            </div>
+
+            <!-- Genre Scroll -->
+            <div class="container pb-3">
+                <div class="d-flex overflow-auto" id="genreScrollContainer">
+                    <!-- Genre buttons will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie Cards Container -->
+        <div class="container mt-4 px-4" id="movieCardsContainer"></div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Movie data
+        const moviesData = {
+            'English': [
+                { 
+                    id: '1', 
+                    title: 'Inception', 
+                    duration: '2h 28m', 
+                    rating: '8.8', 
+                    genre: 'Sci-Fi', 
+                    year: '2010',
+                    poster: '/api/placeholder/150/225' 
+                },
+                { 
+                    id: '2', 
+                    title: 'Interstellar', 
+                    duration: '2h 49m', 
+                    rating: '8.6', 
+                    genre: 'Sci-Fi', 
+                    year: '2014',
+                    poster: '/api/placeholder/150/225' 
+                },
+                { 
+                    id: '3', 
+                    title: 'The Dark Knight', 
+                    duration: '2h 32m', 
+                    rating: '9.0', 
+                    genre: 'Action', 
+                    year: '2008',
+                    poster: '/api/placeholder/150/225' 
+                }
+            ],
+            'Hindi': [
+                { 
+                    id: '11', 
+                    title: 'Dangal', 
+                    duration: '2h 41m', 
+                    rating: '8.4', 
+                    genre: 'Sports', 
+                    year: '2016',
+                    poster: '/api/placeholder/150/225' 
+                },
+                { 
+                    id: '12', 
+                    title: '3 Idiots', 
+                    duration: '2h 50m', 
+                    rating: '8.4', 
+                    genre: 'Comedy', 
+                    year: '2009',
+                    poster: '/api/placeholder/150/225' 
+                }
+            ]
+        };
+
+        // Language cards
+        const languages = [
+            { id: '1', name: 'English', movies: '10+ Movies', icon: '🎬' },
+            { id: '2', name: 'Hindi', movies: '5+ Movies', icon: '🎥' }
+        ];
+
+        // Create language cards
+        function createLanguageCards() {
+            const container = document.getElementById('languageCardsContainer');
+            container.innerHTML = '';
+            
+            languages.forEach((language) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'language-card p-3 mb-3';
+                cardDiv.innerHTML = `
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="language-icon">${language.icon}</div>
+                        </div>
+                        <div class="col">
+                            <h5 class="language-name mb-1">${language.name}</h5>
+                            <p class="movie-count mb-0">${language.movies}</p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="arrow-container">→</div>
+                        </div>
+                    </div>
+                `;
+                
+                cardDiv.addEventListener('click', () => showMovies(language.name));
+                container.appendChild(cardDiv);
+            });
+        }
+
+        // Show movies for selected language
+        function showMovies(languageName) {
+            const languageScreen = document.getElementById('languageScreen');
+            const movieScreen = document.getElementById('movieScreen');
+            const movieContainer = document.getElementById('movieCardsContainer');
+            const genreContainer = document.getElementById('genreScrollContainer');
+            const languageTitle = document.getElementById('languageTitle');
+            const languageSubtitle = document.getElementById('languageSubtitle');
+
+            // Update language info
+            languageTitle.textContent = 'Movies';
+            languageSubtitle.textContent = `${languageName} Cinema`;
+
+            // Get movies for selected language
+            const movies = moviesData[languageName];
+
+            // Clear previous content
+            movieContainer.innerHTML = '';
+            genreContainer.innerHTML = '';
+
+            // Create genre buttons
+            const genres = ['All', ...new Set(movies.map(movie => movie.genre))];
+            genres.forEach(genre => {
+                const button = document.createElement('button');
+                button.textContent = genre;
+                button.className = 'btn genre-button';
+                button.addEventListener('click', () => filterMovies(genre, movies));
+                genreContainer.appendChild(button);
+            });
+
+            // Set first genre as active
+            if (genres.length > 0) {
+                genreContainer.firstChild.classList.add('active');
+                filterMovies('All', movies);
+            }
+
+            // Switch screens
+            languageScreen.style.display = 'none';
+            movieScreen.style.display = 'block';
+        }
+
+        // Filter movies by genre
+        function filterMovies(genre, movies) {
+            const movieContainer = document.getElementById('movieCardsContainer');
+            const genreButtons = document.querySelectorAll('.genre-button');
+
+            // Update active genre button
+            genreButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === genre) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter movies
+            const filteredMovies = genre === 'All' 
+                ? movies 
+                : movies.filter(movie => movie.genre === genre);
+
+            // Clear previous movies
+            movieContainer.innerHTML = '';
+
+            // Create movie cards
+            filteredMovies.forEach(movie => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'language-card p-3 mb-3';
+                cardDiv.innerHTML = `
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <img src="${movie.poster}" style="width: 100px; height: 150px; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        <div class="col">
+                            <h5 class="language-name mb-1">${movie.title}</h5>
+                            <div class="d-flex align-items-center">
+                                <span class="movie-count me-2">${movie.year}</span>
+                                <span class="movie-count me-2">•</span>
+                                <span class="movie-count">${movie.duration}</span>
+                            </div>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="badge" style="background-color: rgba(131, 164, 129, 0.1); color: #83A481;">
+                                    ${movie.genre}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="arrow-container">→</div>
+                        </div>
+                    </div>
+                `;
+                
+                movieContainer.appendChild(cardDiv);
+            });
+        }
+
+        // Back to language selection
+        function backToLanguages() {
+            const languageScreen = document.getElementById('languageScreen');
+            const movieScreen = document.getElementById('movieScreen');
+
+            languageScreen.style.display = 'block';
+            movieScreen.style.display = 'none';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createLanguageCards();
+            
+            // Back button event
+            document.getElementById('backButton').addEventListener('click', backToLanguages);
+        });
+    </script>
+</body>
+</html>
