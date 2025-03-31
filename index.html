@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agastya - Role Selection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body, html {
             height: 100%;
             margin: 0;
             overflow: hidden;
-        
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         .background-container {
@@ -28,8 +29,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('20240919_134703.jpg');
-
+            background-image: url('images/20240919_134703.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -40,7 +40,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.5);
             opacity: 0;
             animation: scaleIn 1.5s forwards;
         }
@@ -56,6 +56,15 @@
             padding: 20px;
         }
         
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: slideDown 1s forwards;
+        }
+        
         .title {
             font-size: 42px;
             font-weight: bold;
@@ -63,7 +72,8 @@
             text-align: center;
             opacity: 0;
             transform: translateY(-50px);
-            animation: slideDown 1s forwards;
+            animation: slideDown 1s 0.2s forwards;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .subtitle {
@@ -73,7 +83,7 @@
             margin-bottom: 50px;
             opacity: 0;
             transform: translateY(-30px);
-            animation: slideDown 1s 0.2s forwards;
+            animation: slideDown 1s 0.4s forwards;
         }
         
         .button-wrapper {
@@ -90,10 +100,12 @@
             margin-bottom: 20px;
             border-radius: 15px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            padding: 0 25px;
             border: 2px solid #fff;
             background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             box-shadow: 0 8px 10.32px rgba(0, 0, 0, 0.44);
             transition: transform 0.3s ease, background-color 0.3s ease;
             cursor: pointer;
@@ -102,11 +114,18 @@
         }
         
         .admin-button {
-            animation: slideUp 1s 0.4s forwards;
+            animation: slideUp 1s 0.6s forwards;
+            border-color: #6a11cb;
         }
         
         .user-button {
-            animation: slideUp 1s 0.6s forwards;
+            animation: slideUp 1s 0.8s forwards;
+            border-color: #2575fc;
+        }
+        
+        .others-button {
+            animation: slideUp 1s 1s forwards;
+            border-color: #f83600;
         }
         
         .transparent-button:hover {
@@ -119,6 +138,92 @@
             font-size: 20px;
             font-weight: 600;
             letter-spacing: 1px;
+        }
+        
+        .button-icon {
+            color: #fff;
+            font-size: 24px;
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            background-color: rgba(30, 30, 30, 0.95);
+            color: white;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .option-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .option-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .option-card-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .option-icon {
+            font-size: 30px;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .donate-icon {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+        }
+        
+        .buy-icon {
+            background: linear-gradient(45deg, #F37335, #FDC830);
+        }
+        
+        .btn-close {
+            color: white;
+            filter: invert(1) grayscale(100%) brightness(200%);
         }
         
         /* Animations */
@@ -153,8 +258,12 @@
         
         /* Media queries for better responsiveness */
         @media (max-width: 768px) {
+            .logo {
+                width: 100px;
+            }
+            
             .title {
-                font-size: 32px;
+                font-size: 36px;
             }
             
             .subtitle {
@@ -163,17 +272,37 @@
             }
             
             .transparent-button {
-                height: 60px;
+                height: 65px;
+                padding: 0 20px;
             }
             
             .transparent-button-text {
                 font-size: 18px;
             }
+            
+            .button-icon {
+                font-size: 22px;
+            }
+            
+            .option-card-title {
+                font-size: 18px;
+            }
+            
+            .option-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+            }
         }
         
         @media (max-width: 480px) {
+            .logo {
+                width: 80px;
+                margin-bottom: 15px;
+            }
+            
             .title {
-                font-size: 28px;
+                font-size: 30px;
             }
             
             .subtitle {
@@ -182,11 +311,38 @@
             }
             
             .transparent-button {
-                height: 55px;
+                height: 60px;
+                padding: 0 15px;
             }
             
             .transparent-button-text {
                 font-size: 16px;
+            }
+            
+            .button-icon {
+                font-size: 20px;
+            }
+            
+            .modal-title {
+                font-size: 20px;
+            }
+            
+            .option-card {
+                padding: 20px 15px;
+            }
+            
+            .option-card-title {
+                font-size: 16px;
+            }
+            
+            .option-card-desc {
+                font-size: 13px;
+            }
+            
+            .option-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
             }
         }
     </style>
@@ -197,16 +353,57 @@
         <div class="overlay"></div>
         
         <div class="content-container">
+            <img src="images/image.png" alt="Agastya Logo" class="logo">
             <h1 class="title">Welcome to Agastya</h1>
             <h2 class="subtitle">Please select your role</h2>
             
             <div class="button-wrapper">
                 <div class="transparent-button admin-button" id="adminButton">
                     <span class="transparent-button-text">I am an Admin</span>
+                    <i class="fas fa-user-shield button-icon"></i>
                 </div>
                 
                 <div class="transparent-button user-button" id="userButton">
                     <span class="transparent-button-text">I am a User</span>
+                    <i class="fas fa-user button-icon"></i>
+                </div>
+                
+                <div class="transparent-button others-button" id="othersButton">
+                    <span class="transparent-button-text">Others</span>
+                    <i class="fas fa-users button-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Others Modal -->
+    <div class="modal fade" id="othersModal" tabindex="-1" aria-labelledby="othersModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="othersModalLabel">Choose an Option</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="option-card" id="donateOption">
+                        <div>
+                            <div class="option-card-title">Donate Items</div>
+                            <div class="option-card-desc">Donate your items to support our cause</div>
+                        </div>
+                        <div class="option-icon donate-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" id="buyOption">
+                        <div>
+                            <div class="option-card-title">Buy Products</div>
+                            <div class="option-card-desc">Purchase handcrafted items from our workshop</div>
+                        </div>
+                        <div class="option-icon buy-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -224,6 +421,23 @@
             document.getElementById('userButton').addEventListener('click', function() {
                 // Navigate to login page with user role
                 window.location.href = 'login.html?role=User';
+            });
+            
+            document.getElementById('othersButton').addEventListener('click', function() {
+                // Open the Others modal
+                const othersModal = new bootstrap.Modal(document.getElementById('othersModal'));
+                othersModal.show();
+            });
+            
+            // Add event listeners for modal options
+            document.getElementById('donateOption').addEventListener('click', function() {
+                // Navigate to donate page
+                window.location.href = 'donate.html';
+            });
+            
+            document.getElementById('buyOption').addEventListener('click', function() {
+                // Navigate to buy products page
+                window.location.href = 'buy.html';
             });
         });
     </script>
