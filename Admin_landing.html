@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,332 +14,789 @@
             --background: #F5F5F5;
             --text-dark: #333333;
             --text-light: #666666;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
+
         body {
             background-color: var(--background);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 80px;
+            overflow-x: hidden;
         }
-        
+
+        /* HEADER STYLES */
         .header {
             background-color: var(--primary);
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            padding: 16px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
-        
+
         .header-title {
             color: white;
-            font-weight: bold;
-            font-size: 24px;
+            font-weight: 800;
+            font-size: 28px;
+            letter-spacing: 1px;
         }
-        
+
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            color: white;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .header-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* PROFILE SECTION */
         .profile-section {
             background-color: white;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background-color: rgba(131, 164, 129, 0.1);
+            z-index: 0;
+        }
+
         .profile-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            border: 2px solid var(--primary);
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            border: 3px solid var(--primary);
             object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
-        
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            border-radius: 40px;
+        }
+
         .profile-name {
             color: var(--text-dark);
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 2px;
         }
-        
+
         .registration-date {
             color: var(--primary);
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 4px 12px;
+            background-color: rgba(131, 164, 129, 0.1);
+            border-radius: 20px;
+            display: inline-block;
         }
-        
+
+        /* STATS CARDS */
+        .stats-container {
+            margin-top: 20px;
+            position: relative;
+        }
+
         .stat-card {
             background-color: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            height: 100%;
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
         }
-        
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
         .stat-title {
             color: var(--text-light);
             font-size: 16px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
         }
-        
+
         .stat-value {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 32px;
+            font-weight: 700;
+            transition: var(--transition);
         }
-        
+
+        .stat-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 18px;
+            color: var(--primary);
+            opacity: 0.4;
+        }
+
+        /* WORK SECTION */
         .work-section {
             background-color: white;
-            border-radius: 12px;
-            margin-top: 16px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
-        
+
         .section-title {
             color: var(--text-dark);
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 20px;
+            font-weight: 700;
         }
-        
+
+        .section-header {
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .section-header:hover {
+            background-color: rgba(131, 164, 129, 0.05);
+        }
+
+        #arrowIcon {
+            color: var(--primary);
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .work-details {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
         .task-item {
             padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            margin-bottom: 12px;
             color: white;
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .task-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
         .task-title {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
-        
+
         .task-status {
             font-size: 14px;
-            margin-top: 4px;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin-top: 8px;
         }
-        
+
+        /* QUICK ACTIONS */
+        .quick-actions {
+            margin-top: 24px;
+        }
+
         .quick-action-item {
+            background-color: white;
             text-align: center;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px 10px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
             margin-bottom: 15px;
-            transition: transform 0.3s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
         }
-        
+
         .quick-action-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
         }
-        
+
         .quick-action-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+            font-size: 26px;
+            margin-bottom: 10px;
+            background-color: rgba(131, 164, 129, 0.1);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            transition: var(--transition);
         }
-        
+
+        .quick-action-item:hover .quick-action-icon {
+            transform: scale(1.1);
+        }
+
         .quick-action-text {
             color: var(--text-dark);
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
         }
-        
+
+        /* BOTTOM NAVIGATION */
         .bottom-nav {
             background-color: white;
-            padding: 16px;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            padding: 15px 10px 20px;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
+            z-index: 999;
         }
-        
+
         .nav-item {
             text-align: center;
+            padding: 8px 0;
+            border-radius: 12px;
+            transition: var(--transition);
         }
-        
+
         .nav-icon {
             font-size: 24px;
             margin-bottom: 4px;
+            transition: var(--transition);
         }
-        
+
         .nav-text {
             color: var(--text-light);
             font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
         }
-        
+
         .active-nav {
             background-color: var(--primary);
-            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(131, 164, 129, 0.4);
         }
-        
+
         .active-nav .nav-text {
             color: white;
+            font-weight: 600;
         }
-        
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s forwards;
+
+        .active-nav .nav-icon {
+            color: white;
         }
-        
-        .slide-up {
-            transform: translateY(100px);
-            opacity: 0;
-            animation: slideUp 0.8s forwards;
+
+        .nav-item:not(.active-nav):hover {
+            background-color: rgba(131, 164, 129, 0.1);
+            transform: translateY(-5px);
         }
-        
-        .scale-in {
-            transform: scale(0.9);
-            animation: scaleIn 1s forwards;
+
+        /* Center nav item with special styling */
+        .center-nav-item {
+            position: relative;
+            margin-top: -30px;
         }
-        
+
+        .nav-circle {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5px;
+            box-shadow: 0 4px 15px rgba(131, 164, 129, 0.4);
+            transition: var(--transition);
+            border: 4px solid white;
+        }
+
+        .nav-circle:hover {
+            transform: scale(1.1) rotate(45deg);
+        }
+
+        .nav-circle-icon {
+            font-size: 26px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .nav-circle:hover .nav-circle-icon {
+            transform: rotate(-45deg);
+        }
+
+        /* ANIMATIONS */
         @keyframes fadeIn {
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         @keyframes slideUp {
-            to { 
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
-        
-        @keyframes scaleIn {
-            to { transform: scale(1); }
+
+        @keyframes slideRight {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        
-        /* Add bottom padding to prevent content from being hidden behind fixed bottom nav */
-        .pb-bottom-nav {
-            padding-bottom: 80px;
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        .slide-up {
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards;
+        }
+
+        .slide-right {
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideRight 0.8s forwards;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* PROGRESS BAR */
+        .progress-thin {
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            background-color: rgba(131, 164, 129, 0.1);
+            margin-top: 8px;
+        }
+
+        .progress-bar-custom {
+            background-color: var(--primary);
+            transition: width 1.5s ease;
+            width: 0;
+        }
+
+        /* MINI CALENDAR */
+        .date-display {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .current-date {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .day-name {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* NOTIFICATION DOT */
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #FF6B6B;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        /* SHIMMER EFFECT */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
     </style>
 </head>
+
 <body>
-    <div class="container-fluid p-0 pb-bottom-nav">
+    <div class="container-fluid p-0">
         <!-- Header -->
         <div class="header fade-in d-flex justify-content-between align-items-center">
-            <button class="btn text-white">☰</button>
+            <button class="header-btn">
+                <i class="bi bi-list"></i>
+            </button>
             <div class="header-title">AGASTYA</div>
-            <button class="btn text-white">↻</button>
+            <button class="header-btn">
+                <i class="bi bi-bell"></i>
+                <span class="notification-dot"></span>
+            </button>
         </div>
-        
+
         <!-- Main Content -->
         <div class="container">
+            <!-- Date Display -->
+            <div class="date-display slide-up" style="animation-delay: 0.1s">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <div class="current-date" id="currentDate">April 1, 2025</div>
+                        <div class="day-name" id="currentDay">Tuesday</div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="btn-group">
+                            <button class="btn btn-sm" style="color: var(--primary)">
+                                <i class="bi bi-calendar3"></i>
+                            </button>
+                            <button class="btn btn-sm" style="color: var(--primary)">
+                                <i class="bi bi-calendar-event"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Profile Section -->
-            <div class="profile-section slide-up d-flex align-items-center">
-                <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-image">
-                <div class="ms-3">
-                    <div class="profile-name">Manya Agrawal</div>
-                    <div class="registration-date">Admin No: 9878</div>
+            <div class="profile-section slide-up" style="animation-delay: 0.2s">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <div class="position-relative">
+                            <img src="/api/placeholder/150/150" alt="Profile Photo" class="profile-image">
+                            <div class="shimmer"></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="profile-name">Manya Agrawal</div>
+                        <div class="registration-date">
+                            <i class="bi bi-person-badge"></i> Admin No: 9878
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn" style="color: var(--primary)">
+                            <!-- <i class="bi bi-pencil-square"></i> -->
+                        </button>
+                    </div>
                 </div>
             </div>
-            
+
             <!-- Stats Cards -->
-            <div class="row mt-3 fade-in">
-                <div class="col-6">
-                    <div class="stat-card">
-                        <div class="stat-title">Attendance</div>
-                        <div class="stat-value" style="color: var(--primary);">86.21%</div>
+            <div class="stats-container">
+                <div class="row g-3 slide-up" style="animation-delay: 0.3s">
+                    <div class="col-6">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div class="stat-title">Attendance</div>
+                            <div class="stat-value" style="color: var(--primary);">86.21%</div>
+                            <div class="progress-thin">
+                                <div class="progress-bar-custom attendance-bar" role="progressbar" aria-valuenow="86.21"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="stat-card">
-                        <div class="stat-title">Requests</div>
-                        <div class="stat-value" style="color: var(--secondary);">12</div>
+                    <div class="col-6">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-chat-left-dots"></i>
+                            </div>
+                            <div class="stat-title">Requests</div>
+                            <div class="stat-value" style="color: var(--secondary);">12</div>
+                            <div class="progress-thin">
+                                <div class="progress-bar-custom requests-bar" role="progressbar" aria-valuenow="60"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Today's Work Section -->
-            <div class="work-section slide-up mt-3">
-                <div class="d-flex justify-content-between align-items-center p-3" id="workHeader">
-                    <div class="section-title">Today's Work</div>
-                    <div id="arrowIcon">▶</div>
+            <div class="work-section slide-up" style="animation-delay: 0.4s">
+                <div class="section-header d-flex justify-content-between align-items-center" id="workHeader">
+                    <div class="section-title">
+                        <i class="bi bi-briefcase" style="color: var(--primary); margin-right: 8px;"></i>
+                        Today's Work
+                    </div>
+                    <div id="arrowIcon">
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
                 </div>
-                
-                <div id="workDetails" class="p-3" style="display: none;">
-                    <div class="task-item" style="background-color: #FF6B6B;">
-                        <div class="task-title">Review Employee Reports</div>
-                        <div class="task-status">Pending</div>
-                    </div>
-                    <div class="task-item" style="background-color: var(--primary);">
-                        <div class="task-title">Update Department Policies</div>
-                        <div class="task-status">In Progress</div>
-                    </div>
-                    <div class="task-item" style="background-color: var(--secondary);">
-                        <div class="task-title">Schedule Team Meeting</div>
-                        <div class="task-status">Completed</div>
+
+                <div id="workDetails" class="work-details">
+                    <div class="task-container py-3">
+                        <div class="task-item" style="background-color: #FF6B6B; animation-delay: 0.1s">
+                            <div class="task-title">Review Employee Reports</div>
+                            <div class="task-status">Pending</div>
+                            <div class="shimmer"></div>
+                        </div>
+                        <div class="task-item" style="background-color: var(--primary); animation-delay: 0.2s">
+                            <div class="task-title">Update Department Policies</div>
+                            <div class="task-status">In Progress</div>
+                            <div class="shimmer"></div>
+                        </div>
+                        <div class="task-item" style="background-color: var(--secondary); animation-delay: 0.3s">
+                            <div class="task-title">Schedule Team Meeting</div>
+                            <div class="task-status">Completed</div>
+                            <div class="shimmer"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Quick Actions -->
-            <div class="mt-4">
-                <div class="section-title mb-3">Quick Actions</div>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
-                            <div class="quick-action-icon">🏢</div>
+            <div class="quick-actions">
+                <div class="section-title mb-3 slide-right" style="animation-delay: 0.5s">
+                    <i class="bi bi-lightning-charge" style="color: var(--primary); margin-right: 8px;"></i>
+                    Quick Actions
+                </div>
+                <div class="row g-3">
+                    <div class="col-4 slide-up" style="animation-delay: 0.6s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--primary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-building" style="color: var(--primary)"></i>
+                            </div>
                             <div class="quick-action-text">Site Info</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);" id="attendanceAction">
-                            <div class="quick-action-icon">📊</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.65s">
+                        <div class="quick-action-item" id="attendanceAction"
+                            style="border-top: 4px solid var(--secondary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-bar-chart" style="color: var(--secondary)"></i>
+                            </div>
                             <div class="quick-action-text">Attendance</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
-                            <div class="quick-action-icon">📅</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.7s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--primary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-calendar2-week" style="color: var(--primary)"></i>
+                            </div>
                             <div class="quick-action-text">Calendar</div>
+                            <span class="notification-dot"></span>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);">
-                            <div class="quick-action-icon">📈</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.75s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--secondary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-graph-up" style="color: var(--secondary)"></i>
+                            </div>
                             <div class="quick-action-text">Reports</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
-                            <div class="quick-action-icon">✔️</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.8s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--primary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-check2-square" style="color: var(--primary)"></i>
+                            </div>
                             <div class="quick-action-text">Tasks</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);">
-                            <div class="quick-action-icon">👥</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.85s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--secondary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-people" style="color: var(--secondary)"></i>
+                            </div>
                             <div class="quick-action-text">Team</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
-                            <div class="quick-action-icon">💼</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.9s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--primary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-calendar2-check" style="color: var(--primary)"></i>
+                            </div>
                             <div class="quick-action-text">Meetings</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--secondary);">
-                            <div class="quick-action-icon">🤝</div>
+                    <div class="col-4 slide-up" style="animation-delay: 0.95s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--secondary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-headset" style="color: var(--secondary)"></i>
+                            </div>
                             <div class="quick-action-text">Support</div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="quick-action-item scale-in" style="background-color: var(--primary);">
-                            <div class="quick-action-icon">⚙️</div>
+                    <div class="col-4 slide-up" style="animation-delay: 1s">
+                        <div class="quick-action-item" style="border-top: 4px solid var(--primary)">
+                            <div class="quick-action-icon">
+                                <i class="bi bi-gear" style="color: var(--primary)"></i>
+                            </div>
                             <div class="quick-action-text">Settings</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Bottom Navigation -->
-        <div class="bottom-nav slide-up d-flex justify-content-around">
-            <div class="nav-item">
-                <div class="nav-icon">💼</div>
-                <div class="nav-text">Tasks</div>
-            </div>
-            <div class="nav-item active-nav px-3 py-1">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-text">Home</div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">📊</div>
-                <div class="nav-text">Reports</div>
+        <div class="bottom-nav fade-in">
+            <div class="row align-items-end">
+                <div class="col text-center">
+                    <div class="nav-item">
+                        <div class="nav-icon">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <div class="nav-text">Tasks</div>
+                    </div>
+                </div>
+                <div class="col text-center center-nav-item">
+                    <div class="nav-circle pulse">
+                        <div class="nav-circle-icon">
+                            <i class="bi bi-plus-lg"></i>
+                        </div>
+                    </div>
+                    <div class="nav-text" style="color: var(--primary); font-weight: 500;">Add</div>
+                </div>
+                <div class="col text-center">
+                    <div class="nav-item active-nav">
+                        <div class="nav-icon">
+                            <i class="bi bi-house"></i>
+                        </div>
+                        <div class="nav-text">Home</div>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="nav-item">
+                        <div class="nav-icon">
+                            <i class="bi bi-bar-chart"></i>
+                        </div>
+                        <div class="nav-text">Reports</div>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="nav-item">
+                        <div class="nav-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div class="nav-text">Profile</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -346,46 +804,808 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Initialize elements after DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set current date
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+            document.getElementById('currentDay').textContent = now.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Progress bars animation
+            setTimeout(() => {
+                document.querySelector('.attendance-bar').style.width = '86.21%';
+                document.querySelector('.requests-bar').style.width = '60%';
+            }, 500);
+
             // Toggle work details
             const workHeader = document.getElementById('workHeader');
             const workDetails = document.getElementById('workDetails');
-            const arrowIcon = document.getElementById('arrowIcon');
-            
-            workHeader.addEventListener('click', function() {
-                if (workDetails.style.display === 'none') {
-                    workDetails.style.display = 'block';
-                    arrowIcon.textContent = '▼';
+            const arrowIcon = document.getElementById('arrowIcon').querySelector('i');
+            let isExpanded = false;
+
+            workHeader.addEventListener('click', function () {
+                isExpanded = !isExpanded;
+
+                if (isExpanded) {
+                    workDetails.style.maxHeight = '500px';
+                    arrowIcon.classList.remove('bi-chevron-down');
+                    arrowIcon.classList.add('bi-chevron-up');
+
+                    // Animate tasks
+                    const tasks = document.querySelectorAll('.task-item');
+                    tasks.forEach((task, index) => {
+                        setTimeout(() => {
+                            task.style.transform = 'translateX(0)';
+                            task.style.opacity = '1';
+                        }, 100 * index);
+                    });
                 } else {
-                    workDetails.style.display = 'none';
-                    arrowIcon.textContent = '▶';
+                    workDetails.style.maxHeight = '0';
+                    arrowIcon.classList.remove('bi-chevron-up');
+                    arrowIcon.classList.add('bi-chevron-down');
+
+                    // Hide tasks
+                    const tasks = document.querySelectorAll('.task-item');
+                    tasks.forEach(task => {
+                        task.style.transform = 'translateX(-100%)';
+                        task.style.opacity = '0';
+                    });
                 }
             });
-            
+
+            // Navigate to admin dashboard when attendance is clicked
             // Navigate to admin dashboard when attendance is clicked
             const attendanceAction = document.getElementById('attendanceAction');
-            attendanceAction.addEventListener('click', function() {
-                alert('Navigating to Admin Dashboard');
-                // In a real implementation, you would use:
-                // window.location.href = 'admin-dashboard.html';
+            attendanceAction.addEventListener('click', function () {
+                // Add click effect
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-5px)';
+                    alert('Navigating to Admin Dashboard');
+                }, 200);
             });
-            
-            // Apply animations with slight delays for better visual effect
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach((el, index) => {
-                el.style.animationDelay = (index * 0.2) + 's';
+
+            // Add ripple effect to all quick action items
+            const quickActionItems = document.querySelectorAll('.quick-action-item');
+            quickActionItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    const ripple = document.createElement('div');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${x}px`;
+                    ripple.style.top = `${y}px`;
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
             });
-            
-            const slideElements = document.querySelectorAll('.slide-up');
-            slideElements.forEach((el, index) => {
-                el.style.animationDelay = (0.2 + index * 0.2) + 's';
+
+            // Add animations to bottom navigation
+            const navItems = document.querySelectorAll('.nav-item:not(.active-nav)');
+            navItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const currentActive = document.querySelector('.active-nav');
+                    if (currentActive) {
+                        currentActive.classList.remove('active-nav');
+                    }
+                    this.classList.add('active-nav');
+                });
             });
-            
-            const scaleElements = document.querySelectorAll('.scale-in');
-            scaleElements.forEach((el, index) => {
-                el.style.animationDelay = (0.3 + index * 0.1) + 's';
+
+            // Add floating action button functionality
+            const navCircle = document.querySelector('.nav-circle');
+            navCircle.addEventListener('click', function () {
+                const actionMenu = document.createElement('div');
+                actionMenu.classList.add('action-menu');
+
+                const actions = [
+                    { icon: 'bi-plus-circle', text: 'New Task' },
+                    { icon: 'bi-calendar-plus', text: 'Event' },
+                    { icon: 'bi-file-earmark-plus', text: 'Report' }
+                ];
+
+                actions.forEach(action => {
+                    const actionItem = document.createElement('div');
+                    actionItem.classList.add('action-item');
+                    actionItem.innerHTML = `
+            <div class="action-icon"><i class="bi ${action.icon}"></i></div>
+            <div class="action-text">${action.text}</div>
+        `;
+                    actionItem.addEventListener('click', function () {
+                        alert(`Creating new ${action.text}`);
+                        document.body.removeChild(actionMenu);
+                    });
+                    actionMenu.appendChild(actionItem);
+                });
+
+                document.body.appendChild(actionMenu);
+
+                // Position the menu
+                const rect = this.getBoundingClientRect();
+                actionMenu.style.bottom = `${window.innerHeight - rect.top + 10}px`;
+                actionMenu.style.left = `${rect.left - 20}px`;
+
+                // Add close functionality when clicking outside
+                setTimeout(() => {
+                    const closeMenu = function () {
+                        if (document.body.contains(actionMenu)) {
+                            document.body.removeChild(actionMenu);
+                        }
+                        document.removeEventListener('click', closeMenu);
+                    };
+                    document.addEventListener('click', closeMenu);
+                }, 100);
             });
+
+            // Notification count update simulation
+            let notificationCount = 1;
+            const notificationInterval = setInterval(() => {
+                if (notificationCount < 5) {
+                    notificationCount++;
+                    const notificationBtn = document.querySelector('.header-btn:last-child');
+                    const countBadge = document.createElement('span');
+                    countBadge.classList.add('count-badge');
+                    countBadge.textContent = notificationCount;
+
+                    // Remove existing badge if present
+                    const existingBadge = notificationBtn.querySelector('.count-badge');
+                    if (existingBadge) {
+                        notificationBtn.removeChild(existingBadge);
+                    }
+
+                    notificationBtn.appendChild(countBadge);
+                } else {
+                    clearInterval(notificationInterval);
+                }
+            }, 30000);
+
+            // Task completion functionality
+            document.querySelectorAll('.task-item').forEach(task => {
+                task.addEventListener('click', function () {
+                    const status = this.querySelector('.task-status');
+
+                    if (status.textContent === 'Pending') {
+                        status.textContent = 'In Progress';
+                        this.style.backgroundColor = 'var(--primary)';
+                    } else if (status.textContent === 'In Progress') {
+                        status.textContent = 'Completed';
+                        this.style.backgroundColor = 'var(--secondary)';
+
+                        // Animate completion
+                        const checkmark = document.createElement('div');
+                        checkmark.innerHTML = '<i class="bi bi-check-circle"></i>';
+                        checkmark.classList.add('completion-check');
+                        this.appendChild(checkmark);
+
+                        setTimeout(() => {
+                            checkmark.remove();
+                        }, 1500);
+                    }
+                });
+            });
+
+            // Add CSS for new elements
+            const newStyles = document.createElement('style');
+            newStyles.textContent = `
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+    }
+    
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    .action-menu {
+        position: fixed;
+        z-index: 1100;
+        background-color: white;
+        border-radius: 16px;
+        padding: 15px;
+        box-shadow: var(--shadow);
+        animation: fadeIn 0.3s forwards;
+    }
+    
+    .action-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        transition: var(--transition);
+    }
+    
+    .action-item:hover {
+        background-color: rgba(131, 164, 129, 0.1);
+    }
+    
+    .action-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(131, 164, 129, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+    }
+    
+    .action-icon i {
+        color: var(--primary);
+        font-size: 20px;
+    }
+    
+    .action-text {
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+    
+    .count-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #FF6B6B;
+        color: white;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border: 2px solid white;
+    }
+    
+    .completion-check {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 30px;
+        animation: checkmark 1.5s forwards;
+    }
+    
+    @keyframes checkmark {
+        0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+        50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+`;
+            document.head.appendChild(newStyles);
+
+            // Theme toggler
+            const headerBtn = document.querySelector('.header-btn:first-child');
+            let isDarkMode = false;
+
+            headerBtn.addEventListener('click', function () {
+                isDarkMode = !isDarkMode;
+
+                if (isDarkMode) {
+                    document.documentElement.style.setProperty('--primary', '#5D7D5A');
+                    document.documentElement.style.setProperty('--secondary', '#778F7E');
+                    document.documentElement.style.setProperty('--background', '#222222');
+                    document.documentElement.style.setProperty('--text-dark', '#EEEEEE');
+                    document.documentElement.style.setProperty('--text-light', '#AAAAAA');
+                    document.documentElement.style.setProperty('--shadow', '0 8px 30px rgba(0,0,0,0.3)');
+
+                    document.querySelectorAll('.stat-card, .profile-section, .work-section, .quick-action-item, .bottom-nav, .date-display').forEach(el => {
+                        el.style.backgroundColor = '#333333';
+                    });
+                } else {
+                    document.documentElement.style.setProperty('--primary', '#83A481');
+                    document.documentElement.style.setProperty('--secondary', '#A4BDAB');
+                    document.documentElement.style.setProperty('--background', '#F5F5F5');
+                    document.documentElement.style.setProperty('--text-dark', '#333333');
+                    document.documentElement.style.setProperty('--text-light', '#666666');
+                    document.documentElement.style.setProperty('--shadow', '0 8px 30px rgba(0,0,0,0.12)');
+
+                    document.querySelectorAll('.stat-card, .profile-section, .work-section, .quick-action-item, .bottom-nav, .date-display').forEach(el => {
+                        el.style.backgroundColor = 'white';
+                    });
+                }
+            });
+
+            // Add weather widget to profile section
+            const profileSection = document.querySelector('.profile-section');
+            const weatherWidget = document.createElement('div');
+            weatherWidget.classList.add('weather-widget');
+            weatherWidget.innerHTML = `
+    <div class="weather-icon">
+        <i class="bi bi-cloud-sun"></i>
+    </div>
+    <div class="weather-info">
+        <div class="weather-temp">28°C</div>
+        <div class="weather-location">Delhi, India</div>
+    </div>
+`;
+            profileSection.appendChild(weatherWidget);
+
+            // Add weather widget style
+            const weatherStyle = document.createElement('style');
+            weatherStyle.textContent = `
+    .weather-widget {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        background-color: rgba(131, 164, 129, 0.1);
+        padding: 10px;
+        border-radius: 12px;
+    }
+    
+    .weather-icon {
+        font-size: 24px;
+        color: var(--primary);
+        margin-right: 10px;
+    }
+    
+    .weather-temp {
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+    
+    .weather-location {
+        font-size: 12px;
+        color: var(--text-light);
+    }
+`;
+            document.head.appendChild(weatherStyle);
+
+            // Add animation for weather widget
+            setTimeout(() => {
+                const weatherWidget = document.querySelector('.weather-widget');
+                weatherWidget.style.transform = 'translateX(0)';
+                weatherWidget.style.opacity = '1';
+            }, 1200);
+
+            // Add tooltip functionality for quick actions
+            const quickActions = document.querySelectorAll('.quick-action-item');
+            quickActions.forEach(action => {
+                const tooltip = document.createElement('div');
+                tooltip.classList.add('tooltip');
+                tooltip.textContent = action.querySelector('.quick-action-text').textContent + ' Options';
+                action.appendChild(tooltip);
+
+                action.addEventListener('mouseenter', function () {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.transform = 'translateY(-10px)';
+                });
+
+                action.addEventListener('mouseleave', function () {
+                    tooltip.style.opacity = '0';
+                    tooltip.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Style for tooltip
+            const tooltipStyle = document.createElement('style');
+            tooltipStyle.textContent = `
+    .tooltip {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--primary);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 10;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+    
+    .tooltip::before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 0 5px 5px 5px;
+        border-style: solid;
+        border-color: transparent transparent var(--primary) transparent;
+    }
+`;
+            document.head.appendChild(tooltipStyle);
+
+            // Add task progress tracking
+            const taskProgress = document.createElement('div');
+            taskProgress.classList.add('task-progress');
+            taskProgress.innerHTML = `
+    <div class="task-progress-header">
+        <div class="task-progress-title">Daily Progress</div>
+        <div class="task-progress-percentage">33%</div>
+    </div>
+    <div class="task-progress-bar">
+        <div class="task-progress-fill"></div>
+    </div>
+    <div class="task-progress-stats">
+        <div class="task-stat">
+            <div class="task-stat-value">1/3</div>
+            <div class="task-stat-label">Completed</div>
+        </div>
+        <div class="task-stat">
+            <div class="task-stat-value">1</div>
+            <div class="task-stat-label">In Progress</div>
+        </div>
+        <div class="task-stat">
+            <div class="task-stat-value">1</div>
+            <div class="task-stat-label">Pending</div>
+        </div>
+    </div>
+`;
+            document.querySelector('.container').insertBefore(taskProgress, document.querySelector('.quick-actions'));
+
+            // Add task progress styles
+            const taskProgressStyle = document.createElement('style');
+            taskProgressStyle.textContent = `
+    .task-progress {
+        background-color: white;
+        border-radius: 16px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: var(--shadow);
+        animation: slideUp 0.8s forwards;
+        animation-delay: 0.45s;
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    
+    .task-progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .task-progress-title {
+        font-weight: 700;
+        color: var(--text-dark);
+        font-size: 18px;
+    }
+    
+    .task-progress-percentage {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 18px;
+    }
+    
+    .task-progress-bar {
+        height: 8px;
+        background-color: rgba(131, 164, 129, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    
+    .task-progress-fill {
+        height: 100%;
+        width: 0;
+        background-color: var(--primary);
+        transition: width 1.5s ease;
+    }
+    
+    .task-progress-stats {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .task-stat {
+        text-align: center;
+    }
+    
+    .task-stat-value {
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+    
+    .task-stat-label {
+        font-size: 12px;
+        color: var(--text-light);
+    }
+`;
+            document.head.appendChild(taskProgressStyle);
+
+            // Animate task progress bar
+            setTimeout(() => {
+                document.querySelector('.task-progress-fill').style.width = '33%';
+            }, 1500);
+
+            // Update task statistics when tasks are clicked
+            document.querySelectorAll('.task-item').forEach(task => {
+                task.addEventListener('click', function () {
+                    const status = this.querySelector('.task-status');
+                    const oldStatus = status.textContent;
+
+                    if (oldStatus === 'Pending') {
+                        // Update to In Progress
+                        status.textContent = 'In Progress';
+                        this.style.backgroundColor = 'var(--primary)';
+
+                        // Update stats
+                        document.querySelectorAll('.task-stat-value')[1].textContent = '2';
+                        document.querySelectorAll('.task-stat-value')[2].textContent = '0';
+
+                        // Update progress
+                        document.querySelector('.task-progress-percentage').textContent = '33%';
+                        document.querySelector('.task-progress-fill').style.width = '33%';
+                    } else if (oldStatus === 'In Progress') {
+                        // Update to Completed
+                        status.textContent = 'Completed';
+                        this.style.backgroundColor = 'var(--secondary)';
+
+                        // Update stats
+                        document.querySelectorAll('.task-stat-value')[0].textContent = '2/3';
+                        document.querySelectorAll('.task-stat-value')[1].textContent = '1';
+
+                        // Update progress
+                        document.querySelector('.task-progress-percentage').textContent = '67%';
+                        document.querySelector('.task-progress-fill').style.width = '67%';
+
+                        // Add completion animation
+                        const checkmark = document.createElement('div');
+                        checkmark.innerHTML = '<i class="bi bi-check-circle"></i>';
+                        checkmark.classList.add('completion-check');
+                        this.appendChild(checkmark);
+
+                        setTimeout(() => {
+                            checkmark.remove();
+                        }, 1500);
+                    }
+                });
+            });
+
+            // Add search functionality
+            const searchBar = document.createElement('div');
+            searchBar.classList.add('search-bar', 'slide-up');
+            searchBar.style.animationDelay = '0.15s';
+            searchBar.innerHTML = `
+    <div class="search-input">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search tasks, reports, etc.">
+    </div>
+`;
+
+            document.querySelector('.container').insertBefore(searchBar, document.querySelector('.date-display'));
+
+            // Add search bar styles
+            const searchBarStyle = document.createElement('style');
+            searchBarStyle.textContent = `
+    .search-bar {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .search-input {
+        background-color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        box-shadow: var(--shadow);
+    }
+    
+    .search-input i {
+        color: var(--text-light);
+        margin-right: 10px;
+    }
+    
+    .search-input input {
+        border: none;
+        outline: none;
+        padding: 15px 0;
+        width: 100%;
+        color: var(--text-dark);
+    }
+    
+    .search-input input::placeholder {
+        color: var(--text-light);
+    }
+`;
+            document.head.appendChild(searchBarStyle);
+
+            // Add notifications panel
+            const notificationBtn = document.querySelector('.header-btn:last-child');
+            notificationBtn.addEventListener('click', function () {
+                const notificationsPanel = document.createElement('div');
+                notificationsPanel.classList.add('notifications-panel');
+
+                notificationsPanel.innerHTML = `
+        <div class="notifications-header">
+            <div class="notifications-title">Notifications</div>
+            <div class="notifications-close"><i class="bi bi-x"></i></div>
+        </div>
+        <div class="notifications-content">
+            <div class="notification-item">
+                <div class="notification-icon" style="background-color: rgba(255, 107, 107, 0.1);">
+                    <i class="bi bi-bell" style="color: #FF6B6B;"></i>
+                </div>
+                <div class="notification-details">
+                    <div class="notification-text">New task assigned: Site Inspection</div>
+                    <div class="notification-time">10 minutes ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon" style="background-color: rgba(131, 164, 129, 0.1);">
+                    <i class="bi bi-calendar-check" style="color: var(--primary);"></i>
+                </div>
+                <div class="notification-details">
+                    <div class="notification-text">Team meeting scheduled for tomorrow at 11:00 AM</div>
+                    <div class="notification-time">1 hour ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon" style="background-color: rgba(164, 189, 171, 0.1);">
+                    <i class="bi bi-graph-up" style="color: var(--secondary);"></i>
+                </div>
+                <div class="notification-details">
+                    <div class="notification-text">Monthly report has been generated</div>
+                    <div class="notification-time">3 hours ago</div>
+                </div>
+            </div>
+        </div>
+        <div class="notifications-footer">
+            <button class="btn" style="color: var(--primary);">View All</button>
+            <button class="btn" style="color: var(--text-light);">Mark All as Read</button>
+        </div>
+    `;
+
+                document.body.appendChild(notificationsPanel);
+
+                // Add panel animation
+                setTimeout(() => {
+                    notificationsPanel.style.transform = 'translateX(0)';
+                }, 10);
+
+                // Close notifications panel when clicking close button
+                notificationsPanel.querySelector('.notifications-close').addEventListener('click', function () {
+                    notificationsPanel.style.transform = 'translateX(100%)';
+
+                    setTimeout(() => {
+                        if (document.body.contains(notificationsPanel)) {
+                            document.body.removeChild(notificationsPanel);
+                        }
+                    }, 300);
+                });
+
+                // Close when clicking outside
+                document.addEventListener('click', function closePanel(e) {
+                    if (!notificationsPanel.contains(e.target) && e.target !== notificationBtn) {
+                        notificationsPanel.style.transform = 'translateX(100%)';
+
+                        setTimeout(() => {
+                            if (document.body.contains(notificationsPanel)) {
+                                document.body.removeChild(notificationsPanel);
+                            }
+                        }, 300);
+
+                        document.removeEventListener('click', closePanel);
+                    }
+                });
+            });
+
+            // Add notifications panel styles
+            const notificationsPanelStyle = document.createElement('style');
+            notificationsPanelStyle.textContent = `
+    .notifications-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 320px;
+        height: 100%;
+        background-color: white;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .notifications-header {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .notifications-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+    
+    .notifications-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .notifications-close:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .notifications-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+    }
+    
+    .notification-item {
+        display: flex;
+        padding: 15px;
+        border-radius: 12px;
+        transition: var(--transition);
+        margin-bottom: 10px;
+    }
+    
+    .notification-item:hover {
+        background-color: rgba(131, 164, 129, 0.05);
+    }
+    
+    .notification-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .notification-details {
+        flex: 1;
+    }
+    
+    .notification-text {
+        color: var(--text-dark);
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    
+    .notification-time {
+        color: var(--text-light);
+        font-size: 12px;
+    }
+    
+    .notifications-footer {
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+`;
+            document.head.appendChild(notificationsPanelStyle);
         });
     </script>
 </body>
+
 </html>
