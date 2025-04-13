@@ -409,18 +409,16 @@
         <div class="category-pills slide-up">
             <div class="category-pill active">All</div>
             <div class="category-pill">Bricks</div>
-            <div class="category-pill">Electrical</div>
-            <div class="category-pill">Facade</div>
-            <div class="category-pill">Flooring</div>
-            <div class="category-pill">Plumbing</div>
-            <div class="category-pill">Frameworks</div>
+            <div class="category-pill">Trailer</div>
+            <div class="category-pill">Introduction</div>
+            <div class="category-pill">Guide</div>
         </div>
         
         <!-- Featured Course -->
-        <div class="featured-course fade-in" data-videoid="EwsZt5-2ygI">
+        <div class="featured-course fade-in" data-videoid="8SjtLYw4h3s">
             <span class="featured-badge">FEATURED</span>
-            <h3>Construction Mastery</h3>
-            <p>Learn all essential skills from expert builders through our comprehensive guide</p>
+            <h3>Project Dignity ShramA</h3>
+            <p>Learning from the Hands that Build - A comprehensive guide by Ethos Arcause</p>
             <button class="featured-button">
                 <i class="bi bi-play-fill"></i> Start Learning
             </button>
@@ -428,17 +426,17 @@
 
         <!-- Course Progress -->
         <h3 class="section-title slide-up">Continue Learning</h3>
-        <div class="video-card slide-up" data-videoid="EwsZt5-2ygI">
+        <div class="video-card slide-up" data-videoid="pAKqc2wOQfE">
             <div class="video-thumbnail">
-                <img src="/api/placeholder/600/400" alt="Learning from the hands that build">
-                <div class="video-duration">17:23</div>
+                <img src="/api/placeholder/600/400" alt="The Ultimate Guide to Clay Bricks in India">
+                <div class="video-duration">9:27</div>
                 <div class="play-button">
                     <i class="bi bi-play-fill fs-4" style="color: var(--primary);"></i>
                 </div>
             </div>
             <div class="video-info">
-                <span class="badge-category">Fundamentals</span>
-                <h4 class="video-title">Learning from the hands that build | Project Shiksha</h4>
+                <span class="badge-category">Bricks</span>
+                <h4 class="video-title">The Ultimate Guide to Clay Bricks in India | Introduction | Project ShramA</h4>
                 <div class="progress-indicator">
                     <div class="progress-bar" style="width: 65%;"></div>
                 </div>
@@ -494,79 +492,34 @@
     
     <script>
         $(document).ready(function() {
-            // Video data from the playlist with actual YouTube IDs from your playlist
+            // Video data from the playlist with correct YouTube IDs from the playlist
             const videos = [
                 {
-                    title: "The Ultimate Guide to Clay Bricks in India | Introduction | Project Shiksha",
+                    title: "Trailer - Learning from the Hands that Build | Project Dignity ShramA",
                     thumbnail: "/api/placeholder/600/400",
-                    duration: "10:26",
+                    duration: "1:40",
                     views: "2.5K",
                     age: "3 months ago",
-                    category: "Bricks",
-                    videoId: "EwsZt5-2ygI"
+                    category: "Trailer",
+                    videoId: "8SjtLYw4h3s"
                 },
                 {
-                    title: "Exposed Clay Bricks in India: Types and uses | Project Shiksha",
+                    title: "The Ultimate Guide to Clay Bricks in India | Introduction | Project ShramA",
                     thumbnail: "/api/placeholder/600/400",
-                    duration: "12:18",
+                    duration: "9:27",
                     views: "1.8K",
                     age: "3 months ago",
                     category: "Bricks",
-                    videoId: "4GIgk1U3r5c"
+                    videoId: "pAKqc2wOQfE"
                 },
                 {
-                    title: "How to choose the right clay bricks in India? | Project Shiksha",
+                    title: "Exposed Clay Bricks in India: Types and uses | Project ShramA",
                     thumbnail: "/api/placeholder/600/400",
-                    duration: "08:42",
+                    duration: "8:42",
                     views: "3.1K",
                     age: "3 months ago",
                     category: "Bricks",
-                    videoId: "S-XdvdPMjFE"
-                },
-                {
-                    title: "Why Shear Formwork is a Game Changer for Construction Projects | Project Shiksha",
-                    thumbnail: "/api/placeholder/600/400",
-                    duration: "14:57",
-                    views: "4.2K",
-                    age: "3 months ago",
-                    category: "Frameworks",
-                    videoId: "n5cMxcDRz2U"
-                },
-                {
-                    title: "From Prep to Pour: The Complete Installation Process of Metal Aluminum Formwork",
-                    thumbnail: "/api/placeholder/600/400",
-                    duration: "13:29",
-                    views: "2.7K",
-                    age: "3 months ago", 
-                    category: "Frameworks",
-                    videoId: "OgpT-3-1rDo"
-                },
-                {
-                    title: "Plumbing 101: Essential Steps for Installing Residential Toilets | Project Shiksha",
-                    thumbnail: "/api/placeholder/600/400",
-                    duration: "11:35",
-                    views: "5.6K",
-                    age: "3 months ago",
-                    category: "Plumbing",
-                    videoId: "aB1-rrzPxaQ"
-                },
-                {
-                    title: "Step-by-Step Sanitary Piping Installation Techniques | Project Shiksha",
-                    thumbnail: "/api/placeholder/600/400",
-                    duration: "15:48",
-                    views: "3.9K",
-                    age: "3 months ago",
-                    category: "Plumbing",
-                    videoId: "uJwWJxwgwG4"
-                },
-                {
-                    title: "Masonry Basics: Everything You Need to Know to Get Started | Project Shiksha",
-                    thumbnail: "/api/placeholder/600/400",
-                    duration: "09:22",
-                    views: "6.3K",
-                    age: "3 months ago",
-                    category: "Bricks",
-                    videoId: "b7zK-QuJCHo"
+                    videoId: "FbkEOsLApIY"
                 }
             ];
             
@@ -621,17 +574,18 @@
                 }
             });
             
-            // Video playback functionality
+            // Video playback functionality - Fixed to use correct YouTube embed URL format
             function openYoutubeModal(videoId) {
                 const player = document.getElementById('youtubePlayer');
-                player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                // Updated embed URL format to ensure it works
+                player.src = `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0`;
                 
                 document.getElementById('videoModal').classList.add('active');
                 document.body.style.overflow = 'hidden'; // Prevent scrolling while modal is open
             }
             
             // Click handlers for video cards
-            $('.video-card, .featured-course').on('click', function() {
+            $(document).on('click', '.video-card, .featured-course', function() {
                 const videoId = $(this).data('videoid');
                 if (videoId) {
                     openYoutubeModal(videoId);
