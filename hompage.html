@@ -4,112 +4,192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGASTYA</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #83A481;
-            --secondary: #A4BDAB;
-            --background: #F5F5F5;
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary: #81C784;
+            --accent: #FF5722;
+            --background: #F9F9F9;
             --white: #FFFFFF;
-            --text-dark: #333333;
-            --text-light: #666666;
+            --text-dark: #212121;
+            --text-light: #757575;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         body {
             background-color: var(--background);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 80px;
         }
         
         .header {
-            background-color: var(--primary);
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 1rem;
             color: var(--white);
-            padding: 16px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .profile-section {
             background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 16px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .profile-section:hover {
+            transform: translateY(-5px);
         }
         
         .profile-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            border: 2px solid var(--primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
             object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         
         .stat-card {
             background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
             height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .quick-action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
         
         .quick-action-item {
-            border-radius: 12px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 16px;
+            padding: 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             color: var(--white);
-            transition: transform 0.3s;
+            transition: all 0.3s;
             height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .quick-action-item.accent {
+            background: linear-gradient(135deg, var(--accent), #E64A19);
         }
         
         .quick-action-item:hover {
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .quick-action-icon {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 8px;
-        }
-        
-        .quick-action-text {
-            font-size: 14px;
-            font-weight: 500;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
         }
         
         .bottom-nav {
             background-color: var(--white);
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
             position: fixed;
             bottom: 0;
             width: 100%;
             z-index: 1000;
+            padding: 0.75rem 0 0.5rem;
         }
         
         .nav-item {
             color: var(--text-light);
-            text-align: center;
-            transition: color 0.3s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
         }
         
         .nav-item:hover {
             color: var(--primary);
+            transform: translateY(-5px);
         }
         
         .nav-icon {
-            font-size: 24px;
-            margin-bottom: 4px;
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .section-title {
+            color: var(--text-dark);
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+            margin-left: 10px;
+        }
+        
+        .badge-notification {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .fade-in {
-            animation: fadeIn 1s;
+            animation: fadeIn 0.8s;
         }
         
         .slide-up {
             animation: slideUp 0.8s;
-        }
-        
-        .scale-in {
-            animation: scaleIn 0.8s;
         }
         
         @keyframes fadeIn {
@@ -118,122 +198,141 @@
         }
         
         @keyframes slideUp {
-            from { transform: translateY(100px); }
-            to { transform: translateY(0); }
-        }
-        
-        @keyframes scaleIn {
-            from { transform: scale(0.9); }
-            to { transform: scale(1); }
-        }
-        
-        .main-content {
-            margin-bottom: 80px; /* Space for fixed bottom nav */
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <div class="header d-flex justify-content-between align-items-center fade-in">
-        <button class="btn text-white" onclick="window.history.back()">
-            <i class="bi bi-arrow-left fs-4"></i>
-        </button>
-        <h1 class="fs-4 fw-bold m-0">AGASTYA</h1>
-        <button class="btn text-white">
-            <i class="bi bi-arrow-clockwise fs-4"></i>
-        </button>
+        <div class="d-flex align-items-center">
+            <i class="bi bi-grid-3x3-gap-fill fs-4 me-2"></i>
+            <h1 class="fs-4 fw-bold m-0">AGASTYA</h1>
+        </div>
+        <div>
+            <button class="btn text-white position-relative">
+                <i class="bi bi-bell-fill fs-5"></i>
+                <span class="badge-notification">3</span>
+            </button>
+        </div>
     </div>
 
-    <div class="container main-content">
+    <div class="container py-2">
         <!-- Profile Section -->
-        <div class="profile-section d-flex align-items-center p-3 slide-up">
-            <img src="https://via.placeholder.com/150" alt="Profile" class="profile-image">
+        <div class="profile-section d-flex align-items-center slide-up">
+            <img src="/images/Gaurav.png" alt="Profile" class="profile-image">
             <div class="ms-3">
-                <h2 class="fs-5 fw-bold text-dark mb-1">Saket Maheshwari</h2>
-                <p class="text-primary m-0">User ID: 12345</p>
+                <h2 class="fs-5 fw-bold text-dark mb-1">Gaurav</h2>
+                <p class="m-0" style="color: var(--primary);">
+                    <i class="bi bi-person-badge"></i> ID: 12345
+                </p>
+            </div>
+            <div class="ms-auto">
+                <button class="btn btn-sm" style="background-color: var(--primary); color: white;">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
             </div>
         </div>
 
         <!-- Stats Cards -->
-        <div class="row g-2 mt-3 fade-in">
+        <div class="row g-3 mt-2 fade-in">
             <div class="col-6">
-                <div class="stat-card p-3">
-                    <p class="text-secondary mb-2">Attendance</p>
-                    <p class="fs-3 fw-bold text-primary m-0">79%</p>
+                <div class="stat-card">
+                    <p class="text-secondary mb-1 small">
+                        <i class="bi bi-calendar-check"></i> Attendance
+                    </p>
+                    <div class="d-flex align-items-end">
+                        <p class="fs-2 fw-bold m-0" style="color: var(--primary);">79%</p>
+                        <p class="ms-2 mb-1 small text-success">
+                            <i class="bi bi-arrow-up"></i> 2%
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="col-6">
-                <div class="stat-card p-3">
-                    <p class="text-secondary mb-2">Notifications</p>
-                    <p class="fs-3 fw-bold" style="color: var(--secondary)">3</p>
+                <div class="stat-card">
+                    <p class="text-secondary mb-1 small">
+                        <i class="bi bi-bell"></i> Notifications
+                    </p>
+                    <div class="d-flex align-items-end">
+                        <p class="fs-2 fw-bold m-0" style="color: var(--accent);">3</p>
+                        <p class="ms-2 mb-1 small">
+                            <span class="text-secondary">New</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Quick Actions Grid -->
-        <div class="mt-4">
-            <h2 class="fs-5 fw-bold mb-3">Quick Actions</h2>
-            <div class="row g-2 scale-in" id="quickActions">
-                <!-- Quick actions will be populated here by JavaScript -->
-            </div>
+        <!-- Quick Actions -->
+        <h3 class="section-title slide-up">Quick Actions</h3>
+        <div class="quick-action-grid fade-in" id="quickActions">
+            <!-- Quick actions will be populated here by JavaScript -->
         </div>
     </div>
 
     <!-- Bottom Navigation -->
-    <div class="bottom-nav d-flex justify-content-around p-3 slide-up">
-        <a href="index.html" class="nav-item text-decoration-none">
-            <div class="nav-icon">🏠</div>
-            <div class="small">Home</div>
-        </a>
-        <a href="profile.html" class="nav-item text-decoration-none">
-            <div class="nav-icon">👤</div>
-            <div class="small">Profile</div>
-        </a>
-        <a href="settings.html" class="nav-item text-decoration-none">
-            <div class="nav-icon">⚙️</div>
-            <div class="small">Settings</div>
-        </a>
+    <div class="bottom-nav slide-up">
+        <div class="d-flex justify-content-around">
+            <a href="#" class="nav-item active">
+                <i class="bi bi-house-fill nav-icon"></i>
+                <span class="small">Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="bi bi-search nav-icon"></i>
+                <span class="small">Explore</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="bi bi-person nav-icon"></i>
+                <span class="small">Profile</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="bi bi-gear nav-icon"></i>
+                <span class="small">Settings</span>
+            </a>
+        </div>
     </div>
 
-    <!-- Bootstrap & jQuery -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     
     <script>
         $(document).ready(function() {
-            // Quick actions data with HTML page links
+            // Quick actions data
             const quickActions = [
-                { id: '1', title: 'Jobs Posting', icon: '💼', page: 'Jobposting.html' },
-                { id: '2', title: 'Government Schemes', icon: '🏛️', page: 'GovSchemes.html' },
-                { id: '3', title: 'Issue Items', icon: '🏷️', page: 'Used.html' },
-                { id: '4', title: 'Health and Safety', icon: '🏥', page: 'health.html' },
-                { id: '5', title: 'Rewards and Offers', icon: '🎁', page: 'reward.html' },
-                { id: '6', title: 'Feedback/Suggestions', icon: '📝', page: 'feedback.html' },
-                { id: '7', title: 'Game', icon: '🎮', page: 'game.html' },
-                { id: '8', title: 'Entertainment', icon: '🎬', page: 'entertainment.html' },
-                { id: '9', title: 'Emergency Alert', icon: '🚨', page: 'emergency-alert.html' },
-                { id: '10', title: 'Grocery Store', icon: '🛒', page: 'grocery.html' },
-                { id: '11', title: 'Attendance', icon: '📊', page: 'attendence.html' },
+                { id: '1', title: 'Learning', icon: 'bi-journal-bookmark-fill', page: 'learning.html', accent: false },
+                { id: '2', title: 'Gov Schemes', icon: 'bi-bank2', page: 'GovSchemes.html', accent: true },
+                { id: '3', title: 'Issue Items', icon: 'bi-tags-fill', page: 'Used.html', accent: false },
+                { id: '4', title: 'Health', icon: 'bi-heart-pulse-fill', page: 'health.html', accent: true },
+                { id: '5', title: 'Rewards', icon: 'bi-gift-fill', page: 'reward.html', accent: false },
+                { id: '6', title: 'Feedback', icon: 'bi-chat-square-text-fill', page: 'feedback.html', accent: false },
+                { id: '7', title: 'Game', icon: 'bi-controller', page: 'games.html', accent: true },
+                { id: '8', title: 'Entertainment', icon: 'bi-film', page: 'entertainment.html', accent: false },
+                { id: '9', title: 'Emergency', icon: 'bi-exclamation-triangle-fill pulse', page: 'emergency-alert.html', accent: true }
             ];
             
             // Populate quick actions
-            const quickActionsContainer = $('#quickActions');
+            const quickActionsContainer = document.getElementById('quickActions');
             
             quickActions.forEach(item => {
-                const backgroundColor = item.id % 2 === 0 ? 'var(--secondary)' : 'var(--primary)';
-                
-                const actionItem = `
-                    <div class="col-4">
-                        <a href="${item.page}" class="text-decoration-none">
-                            <div class="quick-action-item d-flex flex-column align-items-center p-3" style="background-color: ${backgroundColor}">
-                                <div class="quick-action-icon">${item.icon}</div>
-                                <div class="quick-action-text text-center">${item.title}</div>
-                            </div>
-                        </a>
-                    </div>
+                const actionDiv = document.createElement('div');
+                actionDiv.innerHTML = `
+                    <a href="${item.page}" class="text-decoration-none">
+                        <div class="quick-action-item ${item.accent ? 'accent' : ''}">
+                            <i class="bi ${item.icon} quick-action-icon"></i>
+                            <div class="quick-action-text text-center small fw-medium">${item.title}</div>
+                        </div>
+                    </a>
                 `;
-                
-                quickActionsContainer.append(actionItem);
+                quickActionsContainer.appendChild(actionDiv);
+            });
+            
+            // Add active class to current nav item
+            $('.nav-item').on('click', function() {
+                $('.nav-item').removeClass('active');
+                $(this).addClass('active');
             });
         });
     </script>
