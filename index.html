@@ -29,7 +29,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('20240919_134703.jpg');
+            background-image: url('images/20240919_134703.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -221,6 +221,14 @@
             background: linear-gradient(45deg, #F37335, #FDC830);
         }
         
+        .profile-icon {
+            background: linear-gradient(45deg, #2193b0, #6dd5ed);
+        }
+        
+        .marketplace-icon {
+            background: linear-gradient(45deg, #4776E6, #8E54E9);
+        }
+        
         .btn-close {
             color: white;
             filter: invert(1) grayscale(100%) brightness(200%);
@@ -353,7 +361,7 @@
         <div class="overlay"></div>
         
         <div class="content-container">
-            <img src="image.png" alt="Agastya Logo" class="logo">
+            <img src="images/image.png" alt="Agastya Logo" class="logo">
             <h1 class="title">Welcome to Agastya</h1>
             <h2 class="subtitle">Please select your role</h2>
             
@@ -371,6 +379,39 @@
                 <div class="transparent-button others-button" id="othersButton">
                     <span class="transparent-button-text">Others</span>
                     <i class="fas fa-users button-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- User Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">User Options</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="option-card" id="profileOption">
+                        <div>
+                            <div class="option-card-title">My Profile</div>
+                            <div class="option-card-desc">Access your account and personal dashboard</div>
+                        </div>
+                        <div class="option-icon profile-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" id="marketplaceOption">
+                        <div>
+                            <div class="option-card-title">Marketplace</div>
+                            <div class="option-card-desc">Sell Your Products</div>
+                        </div>
+                        <div class="option-icon marketplace-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -419,8 +460,9 @@
             });
             
             document.getElementById('userButton').addEventListener('click', function() {
-                // Navigate to login page with user role
-                window.location.href = 'login.html?role=User';
+                // Open the User modal instead of redirecting
+                const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+                userModal.show();
             });
             
             document.getElementById('othersButton').addEventListener('click', function() {
@@ -429,10 +471,21 @@
                 othersModal.show();
             });
             
-            // Add event listeners for modal options
+            // Add event listeners for user modal options
+            document.getElementById('profileOption').addEventListener('click', function() {
+                // Navigate to user login page
+                window.location.href = 'login.html?role=User';
+            });
+            
+            document.getElementById('marketplaceOption').addEventListener('click', function() {
+                // Navigate to marketplace page
+                window.location.href = 'sell.html';
+            });
+            
+            // Add event listeners for others modal options
             document.getElementById('donateOption').addEventListener('click', function() {
                 // Navigate to donate page
-                window.location.href = 'donor.html';
+                window.location.href = 'donation.html';
             });
             
             document.getElementById('buyOption').addEventListener('click', function() {
