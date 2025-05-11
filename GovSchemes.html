@@ -1,100 +1,587 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Government Schemes</title>
+    <title>Government Schemes Hub</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary-color: #83A481;
+            --primary-dark: #6a8469;
+            --primary-light: #a1bda0;
             --secondary-color: #A4BDAB;
-            --background-color: #F5F5F5;
+            --secondary-dark: #8aa090;
+            --secondary-light: #c2d4c7;
+            --background-color: #f8f9fa;
             --white-color: #FFFFFF;
             --text-dark: #333333;
             --text-light: #666666;
+            --accent-color: #e6efe6;
         }
 
         body {
             background-color: var(--background-color);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.1)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-title {
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-custom {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: none;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-custom i {
+            margin-right: 6px;
+        }
+
+        .search-container {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: -30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-input {
+            border: 2px solid var(--secondary-light);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(131, 164, 129, 0.25);
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .category-filter {
+            background-color: white;
+            color: var(--text-dark);
+            border: 1px solid var(--secondary-light);
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-filter:hover,
+        .category-filter.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
         }
 
         .scheme-card {
             background-color: var(--white-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(131, 164, 129, 0.1);
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
+            border-radius: 16px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: none;
         }
 
         .scheme-card:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .scheme-card-header {
+            background-color: rgba(164, 189, 171, 0.2);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scheme-card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2383A481' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
         }
 
         .category-tag {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             color: var(--white-color);
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
             font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 5px rgba(131, 164, 129, 0.3);
+            position: relative;
+            z-index: 1;
         }
 
         .scheme-title {
             color: var(--text-dark);
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .scheme-card-body {
+            padding: 1.5rem;
         }
 
         .scheme-description {
             color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        .header {
+        .view-details-btn {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .language-toggle {
+        .view-details-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .view-details-btn:hover i {
+            transform: translateX(3px);
+        }
+
+        .modal-content {
+            border-radius: 16px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            border-top: none;
+            padding: 1.5rem;
+        }
+
+        .detail-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .detail-value {
+            background-color: var(--accent-color);
+            padding: 1rem;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        .stats-container {
+            background-color: var(--white-color);
+            border-radius: 16px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .language-badge {
             background-color: var(--white-color);
             color: var(--primary-color);
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.9rem;
+        }
+
+        .filter-dropdown {
+            width: 100%;
+            background-color: white;
+            border: 1px solid var(--secondary-light);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .badge-eligibility {
+            background-color: rgba(131, 164, 129, 0.2);
+            color: var(--primary-dark);
+            border-radius: 50px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .scheme-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .scheme-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .scheme-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .scheme-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .scheme-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .apply-now-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .apply-now-btn:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .close-btn {
+            background-color: #e9ecef;
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #d9dde0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .search-container {
+                margin-top: -20px;
+                padding: 1rem;
+            }
+
+            .scheme-card-header,
+            .scheme-card-body {
+                padding: 1rem;
+            }
+
+            .app-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-container {
+                margin-bottom: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container-fluid header">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h2" id="headerTitle">Government Schemes</h1>
-            <div class="d-flex align-items-center">
-                <button class="btn btn-light me-2" id="filterBtn">Filter</button>
-                <button class="btn btn-light" id="languageToggle">हिं</button>
+    <!-- Header Section -->
+    <div class="header">
+        <div class="container header-content">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="app-title mb-2" id="headerTitle">Government Schemes Hub</h1>
+                    <p class="lead mb-0" id="headerSubtitle">Discover and access government welfare programs at your
+                        fingertips</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end align-items-center mt-3 mt-md-0">
+                    <div class="position-relative me-3">
+                        <button class="btn btn-custom" id="notificationBtn">
+                            <i class="fas fa-bell"></i> <span id="notificationText">Alerts</span>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </div>
+                    <button class="btn btn-custom language-badge ms-2" id="languageToggle">EN</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container mt-4" id="schemesContainer">
-        <!-- Schemes will be dynamically added here -->
+    <!-- Search Section -->
+    <div class="container">
+        <div class="search-container">
+            <div class="row">
+                <div class="col-md-8 mb-3 mb-md-0">
+                    <input type="text" class="form-control search-input"
+                        placeholder="Search schemes by name, category, or eligibility..." id="searchInput">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn search-btn w-100" id="searchBtn">
+                        <i class="fas fa-search me-2"></i> <span id="searchBtnText">Search</span>
+                    </button>
+                </div>
+            </div>
+            <div class="category-filters mt-3">
+                <span class="category-filter active" data-category="all" id="allFilter">All</span>
+                <span class="category-filter" data-category="Financial Inclusion" id="financialFilter">Financial</span>
+                <span class="category-filter" data-category="Housing" id="housingFilter">Housing</span>
+                <span class="category-filter" data-category="Healthcare" id="healthcareFilter">Healthcare</span>
+                <span class="category-filter" data-category="Employment" id="employmentFilter">Employment</span>
+                <span class="category-filter" data-category="Sanitation" id="sanitationFilter">Sanitation</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="container mt-4">
+        <div class="stats-container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="stat-item">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label" id="schemesLabel">Schemes</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-item">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label" id="categoriesLabel">Categories</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-item">
+                        <div class="stat-value">10Cr+</div>
+                        <div class="stat-label" id="beneficiariesLabel">Beneficiaries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schemes Container -->
+    <div class="container" id="mainContent">
+        <h2 class="mb-4" id="schemesHeading">Available Schemes</h2>
+        <div class="row" id="schemesContainer">
+            <!-- Schemes will be dynamically added here -->
+        </div>
     </div>
 
     <!-- Details Modal -->
     <div class="modal fade" id="schemeDetailsModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="schemeModalTitle"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="schemeModalBody"></div>
+                <div class="modal-body" id="schemeModalBody">
+                    <!-- Content will be dynamically added here -->
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModalBtn">Close</button>
-                    <button type="button" class="btn btn-primary" id="applyNowBtn">Apply Now</button>
+                    <button type="button" class="btn close-btn" data-bs-dismiss="modal"
+                        id="closeModalBtn">Close</button>
+                    <button type="button" class="btn apply-now-btn" id="applyNowBtn">
+                        <i class="fas fa-paper-plane me-2"></i> Apply Now
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 id="footerTitle">Government Schemes Hub</h4>
+                    <p id="footerDescription">A comprehensive platform to access information about government welfare
+                        schemes and benefits.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p id="footerRights">© 2025 All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -112,6 +599,7 @@
                 eligibilityHi: '10 वर्ष से अधिक उम्र के किसी भी भारतीय नागरिक',
                 benefitsEn: 'Zero balance account, RuPay debit card, ₹1 lakh accident insurance cover',
                 benefitsHi: 'शून्य शेष खाता, रुपे डेबिट कार्ड, ₹1 लाख दुर्घटना बीमा कवर',
+                icon: 'fa-landmark'
             },
             {
                 id: '2',
@@ -125,6 +613,7 @@
                 eligibilityHi: 'ईडब्ल्यूएस/एलआईजी और एमआईजी श्रेणियां',
                 benefitsEn: 'Interest subsidy up to ₹2.67 lakh, affordable housing',
                 benefitsHi: '₹2.67 लाख तक ब्याज सब्सिडी, किफायती आवास',
+                icon: 'fa-home'
             },
             {
                 id: '3',
@@ -138,6 +627,7 @@
                 eligibilityHi: 'एसईसीसी डेटाबेस के अनुसार गरीब और कमजोर परिवार',
                 benefitsEn: 'Health coverage up to ₹5 lakh per family per year',
                 benefitsHi: 'प्रति परिवार प्रति वर्ष ₹5 लाख तक का स्वास्थ्य कवरेज',
+                icon: 'fa-heart-pulse'
             },
             {
                 id: '4',
@@ -151,6 +641,7 @@
                 eligibilityHi: 'ग्रामीण परिवारों के वयस्क सदस्य',
                 benefitsEn: '100 days of guaranteed wage employment',
                 benefitsHi: '100 दिन का गारंटीकृत मजदूरी रोजगार',
+                icon: 'fa-briefcase'
             },
             {
                 id: '5',
@@ -164,88 +655,306 @@
                 eligibilityHi: 'सभी भारतीय नागरिक',
                 benefitsEn: 'Improved sanitation facilities and cleaner environment',
                 benefitsHi: 'बेहतर स्वच्छता सुविधाएं और साफ-सुथरा वातावरण',
+                icon: 'fa-broom'
             },
         ];
 
         let currentLanguage = 'en';
+        let currentCategory = 'all';
         const schemesContainer = document.getElementById('schemesContainer');
+
+        // Elements for language translation
+        // Elements for language translation
         const headerTitle = document.getElementById('headerTitle');
-        const languageToggle = document.getElementById('languageToggle');
-        const filterBtn = document.getElementById('filterBtn');
-        const schemeDetailsModal = new bootstrap.Modal(document.getElementById('schemeDetailsModal'));
-        const schemeModalTitle = document.getElementById('schemeModalTitle');
-        const schemeModalBody = document.getElementById('schemeModalBody');
+        const headerSubtitle = document.getElementById('headerSubtitle');
+        const searchBtnText = document.getElementById('searchBtnText');
+        const notificationText = document.getElementById('notificationText');
+        const schemesLabel = document.getElementById('schemesLabel');
+        const categoriesLabel = document.getElementById('categoriesLabel');
+        const beneficiariesLabel = document.getElementById('beneficiariesLabel');
+        const schemesHeading = document.getElementById('schemesHeading');
         const closeModalBtn = document.getElementById('closeModalBtn');
         const applyNowBtn = document.getElementById('applyNowBtn');
+        const footerTitle = document.getElementById('footerTitle');
+        const footerDescription = document.getElementById('footerDescription');
+        const footerRights = document.getElementById('footerRights');
+        const allFilter = document.getElementById('allFilter');
+        const financialFilter = document.getElementById('financialFilter');
+        const housingFilter = document.getElementById('housingFilter');
+        const healthcareFilter = document.getElementById('healthcareFilter');
+        const employmentFilter = document.getElementById('employmentFilter');
+        const sanitationFilter = document.getElementById('sanitationFilter');
 
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'en' ? 'hi' : 'en';
-            languageToggle.textContent = currentLanguage === 'en' ? 'हिं' : 'EN';
-            headerTitle.textContent = currentLanguage === 'en' ? 'Government Schemes' : 'सरकारी योजनाएं';
-            filterBtn.textContent = currentLanguage === 'en' ? 'Filter' : 'फ़िल्टर';
-            closeModalBtn.textContent = currentLanguage === 'en' ? 'Close' : 'बंद';
-            applyNowBtn.textContent = currentLanguage === 'en' ? 'Apply Now' : 'अभी आवेदन करें';
-            renderSchemes();
+        // Language translations
+        const translations = {
+            en: {
+                headerTitle: 'Government Schemes Hub',
+                headerSubtitle: 'Discover and access government welfare programs at your fingertips',
+                searchBtnText: 'Search',
+                notificationText: 'Alerts',
+                schemesLabel: 'Schemes',
+                categoriesLabel: 'Categories',
+                beneficiariesLabel: 'Beneficiaries',
+                schemesHeading: 'Available Schemes',
+                closeModalBtn: 'Close',
+                applyNowBtn: 'Apply Now',
+                footerTitle: 'Government Schemes Hub',
+                footerDescription: 'A comprehensive platform to access information about government welfare schemes and benefits.',
+                footerRights: '© 2025 All Rights Reserved',
+                allFilter: 'All',
+                financialFilter: 'Financial',
+                housingFilter: 'Housing',
+                healthcareFilter: 'Healthcare',
+                employmentFilter: 'Employment',
+                sanitationFilter: 'Sanitation'
+            },
+            hi: {
+                headerTitle: 'सरकारी योजना हब',
+                headerSubtitle: 'अपनी उंगलियों पर सरकारी कल्याण कार्यक्रमों को खोजें और उन तक पहुंचें',
+                searchBtnText: 'खोजें',
+                notificationText: 'सूचनाएं',
+                schemesLabel: 'योजनाएं',
+                categoriesLabel: 'श्रेणियां',
+                beneficiariesLabel: 'लाभार्थी',
+                schemesHeading: 'उपलब्ध योजनाएं',
+                closeModalBtn: 'बंद करें',
+                applyNowBtn: 'अभी आवेदन करें',
+                footerTitle: 'सरकारी योजना हब',
+                footerDescription: 'सरकारी कल्याण योजनाओं और लाभों के बारे में जानकारी प्राप्त करने के लिए एक व्यापक मंच।',
+                footerRights: '© 2025 सर्वाधिकार सुरक्षित',
+                allFilter: 'सभी',
+                financialFilter: 'वित्तीय',
+                housingFilter: 'आवास',
+                healthcareFilter: 'स्वास्थ्य सेवा',
+                employmentFilter: 'रोजगार',
+                sanitationFilter: 'स्वच्छता'
+            }
+        };
+
+        // Function to translate UI
+        function translateUI(language) {
+            const translation = translations[language];
+            headerTitle.textContent = translation.headerTitle;
+            headerSubtitle.textContent = translation.headerSubtitle;
+            searchBtnText.textContent = translation.searchBtnText;
+            notificationText.textContent = translation.notificationText;
+            schemesLabel.textContent = translation.schemesLabel;
+            categoriesLabel.textContent = translation.categoriesLabel;
+            beneficiariesLabel.textContent = translation.beneficiariesLabel;
+            schemesHeading.textContent = translation.schemesHeading;
+            closeModalBtn.textContent = translation.closeModalBtn;
+            applyNowBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i> ${translation.applyNowBtn}`;
+            footerTitle.textContent = translation.footerTitle;
+            footerDescription.textContent = translation.footerDescription;
+            footerRights.textContent = translation.footerRights;
+            allFilter.textContent = translation.allFilter;
+            financialFilter.textContent = translation.financialFilter;
+            housingFilter.textContent = translation.housingFilter;
+            healthcareFilter.textContent = translation.healthcareFilter;
+            employmentFilter.textContent = translation.employmentFilter;
+            sanitationFilter.textContent = translation.sanitationFilter;
         }
 
-        function showSchemeDetails(scheme) {
-            schemeModalTitle.textContent = currentLanguage === 'en' ? scheme.titleEn : scheme.titleHi;
-            schemeModalBody.innerHTML = `
-                <p><strong>${currentLanguage === 'en' ? 'Category' : 'श्रेणी'}:</strong> ${currentLanguage === 'en' ? scheme.categoryEn : scheme.categoryHi}</p>
-                <p><strong>${currentLanguage === 'en' ? 'Eligibility' : 'पात्रता'}:</strong> ${currentLanguage === 'en' ? scheme.eligibilityEn : scheme.eligibilityHi}</p>
-                <p><strong>${currentLanguage === 'en' ? 'Benefits' : 'लाभ'}:</strong> ${currentLanguage === 'en' ? scheme.benefitsEn : scheme.benefitsHi}</p>
-            `;
-            schemeDetailsModal.show();
-        }
-
-        function applyNow() {
-            alert(currentLanguage === 'en' 
-                ? 'You will be redirected to the official application portal.' 
-                : 'आप आधिकारिक आवेदन पोर्टल पर पुनर्निर्देशित किए जाएंगे।'
-            );
-        }
-
-        function renderSchemes() {
+        // Function to create scheme cards
+        function createSchemeCards(schemes, language) {
             schemesContainer.innerHTML = '';
-            schemes.forEach(scheme => {
-                const schemeCard = document.createElement('div');
-                schemeCard.className = 'card scheme-card mb-3 p-3';
-                schemeCard.innerHTML = `
-                    <div class="category-tag">
-                        ${currentLanguage === 'en' ? scheme.categoryEn : scheme.categoryHi}
-                    </div>
-                    <h5 class="scheme-title">
-                        ${currentLanguage === 'en' ? scheme.titleEn : scheme.titleHi}
-                    </h5>
-                    <p class="scheme-description">
-                        ${currentLanguage === 'en' ? scheme.descriptionEn : scheme.descriptionHi}
-                    </p>
-                    <button class="btn btn-primary w-100 view-details-btn" data-scheme-id="${scheme.id}">
-                        ${currentLanguage === 'en' ? 'View Details' : 'विवरण देखें'}
-                    </button>
-                `;
-                schemesContainer.appendChild(schemeCard);
-            });
+            const filteredSchemes = currentCategory === 'all'
+                ? schemes
+                : schemes.filter(scheme => scheme[`category${language.toUpperCase().charAt(0)}${language.slice(1)}`] === currentCategory);
 
-            // Add event listeners to view details buttons
-            document.querySelectorAll('.view-details-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const schemeId = e.target.getAttribute('data-scheme-id');
-                    const scheme = schemes.find(s => s.id === schemeId);
-                    showSchemeDetails(scheme);
+            if (filteredSchemes.length === 0) {
+                schemesContainer.innerHTML = `<div class="col-12 text-center">
+            <p class="fs-5 text-muted mt-4">No schemes found. Please try another filter.</p>
+        </div>`;
+                return;
+            }
+
+            filteredSchemes.forEach((scheme, index) => {
+                const schemeCard = document.createElement('div');
+                schemeCard.className = 'col-md-6 col-lg-4 animate-in scheme-card';
+                schemeCard.innerHTML = `
+            <div class="card scheme-card h-100">
+                <div class="scheme-card-header">
+                    <span class="category-tag">
+                        <i class="fas ${scheme.icon} me-1"></i> ${scheme[`category${language.toUpperCase().charAt(0)}${language.slice(1)}`]}
+                    </span>
+                    <h3 class="scheme-title">${scheme[`title${language.toUpperCase().charAt(0)}${language.slice(1)}`]}</h3>
+                </div>
+                <div class="scheme-card-body">
+                    <p class="scheme-description">${scheme[`description${language.toUpperCase().charAt(0)}${language.slice(1)}`]}</p>
+                    <button class="btn view-details-btn" data-scheme-id="${scheme.id}">
+                        ${language === 'en' ? 'View Details' : 'विवरण देखें'} <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+                schemesContainer.appendChild(schemeCard);
+
+                // Add click event for view details button
+                const viewDetailsBtn = schemeCard.querySelector('.view-details-btn');
+                viewDetailsBtn.addEventListener('click', () => {
+                    showSchemeDetails(scheme.id);
                 });
             });
         }
 
-        // Event Listeners
-        languageToggle.addEventListener('click', toggleLanguage);
-        filterBtn.addEventListener('click', () => {
-            alert(currentLanguage === 'en' ? 'Filter functionality coming soon!' : 'फ़िल्टर सुविधा जल्द ही आ रही है!');
-        });
-        applyNowBtn.addEventListener('click', applyNow);
+        // Function to show scheme details in modal
+        function showSchemeDetails(schemeId) {
+            const scheme = schemes.find(scheme => scheme.id === schemeId);
+            if (!scheme) return;
 
-        // Initial render
-        renderSchemes();
+            const modalTitle = document.getElementById('schemeModalTitle');
+            const modalBody = document.getElementById('schemeModalBody');
+
+            modalTitle.textContent = scheme[`title${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`];
+
+            modalBody.innerHTML = `
+        <div class="detail-item">
+            <div class="detail-label">
+                <i class="fas fa-info-circle me-2"></i> ${currentLanguage === 'en' ? 'Description' : 'विवरण'}
+            </div>
+            <div class="detail-value">
+                ${scheme[`description${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`]}
+            </div>
+        </div>
+        <div class="detail-item">
+            <div class="detail-label">
+                <i class="fas fa-check-circle me-2"></i> ${currentLanguage === 'en' ? 'Eligibility' : 'पात्रता'}
+            </div>
+            <div class="detail-value">
+                ${scheme[`eligibility${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`]}
+            </div>
+        </div>
+        <div class="detail-item">
+            <div class="detail-label">
+                <i class="fas fa-gift me-2"></i> ${currentLanguage === 'en' ? 'Benefits' : 'लाभ'}
+            </div>
+            <div class="detail-value">
+                ${scheme[`benefits${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`]}
+            </div>
+        </div>
+        <div class="mt-4">
+            <h5>${currentLanguage === 'en' ? 'Documents Required' : 'आवश्यक दस्तावेज'}</h5>
+            <div class="row mt-3">
+                <div class="col-md-6 mb-3">
+                    <div class="badge-eligibility"><i class="fas fa-id-card me-1"></i> ${currentLanguage === 'en' ? 'Identity Proof' : 'पहचान प्रमाण'}</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="badge-eligibility"><i class="fas fa-home me-1"></i> ${currentLanguage === 'en' ? 'Address Proof' : 'पता प्रमाण'}</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="badge-eligibility"><i class="fas fa-image me-1"></i> ${currentLanguage === 'en' ? 'Photograph' : 'फोटोग्राफ'}</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="badge-eligibility"><i class="fas fa-phone me-1"></i> ${currentLanguage === 'en' ? 'Mobile Number' : 'मोबाइल नंबर'}</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            const schemeDetailsModal = new bootstrap.Modal(document.getElementById('schemeDetailsModal'));
+            schemeDetailsModal.show();
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            if (!searchTerm) {
+                createSchemeCards(schemes, currentLanguage);
+                return;
+            }
+
+            const filteredSchemes = schemes.filter(scheme => {
+                const title = scheme[`title${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`].toLowerCase();
+                const description = scheme[`description${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`].toLowerCase();
+                const category = scheme[`category${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`].toLowerCase();
+                const eligibility = scheme[`eligibility${currentLanguage.toUpperCase().charAt(0)}${currentLanguage.slice(1)}`].toLowerCase();
+
+                return title.includes(searchTerm) ||
+                    description.includes(searchTerm) ||
+                    category.includes(searchTerm) ||
+                    eligibility.includes(searchTerm);
+            });
+
+            schemesContainer.innerHTML = '';
+
+            if (filteredSchemes.length === 0) {
+                schemesContainer.innerHTML = `<div class="col-12 text-center">
+            <p class="fs-5 text-muted mt-4">${currentLanguage === 'en' ? 'No schemes found matching your search.' : 'आपकी खोज से मेल खाने वाली कोई योजना नहीं मिली।'}</p>
+        </div>`;
+                return;
+            }
+
+            createSchemeCards(filteredSchemes, currentLanguage);
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Category filters
+        const categoryFilters = document.querySelectorAll('.category-filter');
+
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Remove active class from all filters
+                categoryFilters.forEach(f => f.classList.remove('active'));
+
+                // Add active class to clicked filter
+                filter.classList.add('active');
+
+                // Update current category
+                currentCategory = filter.getAttribute('data-category');
+
+                // Create scheme cards with selected category
+                createSchemeCards(schemes, currentLanguage);
+            });
+        });
+
+        // Language toggle
+        const languageToggle = document.getElementById('languageToggle');
+
+        languageToggle.addEventListener('click', () => {
+            currentLanguage = currentLanguage === 'en' ? 'hi' : 'en';
+            languageToggle.textContent = currentLanguage.toUpperCase();
+            translateUI(currentLanguage);
+            createSchemeCards(schemes, currentLanguage);
+        });
+
+        // Apply Now button
+        applyNowBtn.addEventListener('click', () => {
+            alert(currentLanguage === 'en' ?
+                'Application process will be initiated. You will be redirected to the application form.' :
+                'आवेदन प्रक्रिया शुरू की जाएगी। आपको आवेदन पत्र पर पुनर्निर्देशित किया जाएगा।');
+        });
+
+        // Notification button
+        const notificationBtn = document.getElementById('notificationBtn');
+
+        notificationBtn.addEventListener('click', () => {
+            alert(currentLanguage === 'en' ?
+                'You have 3 new scheme notifications. Check your eligible schemes!' :
+                'आपके पास 3 नई योजना सूचनाएं हैं। अपनी पात्र योजनाओं की जांच करें!');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            translateUI(currentLanguage);
+            createSchemeCards(schemes, currentLanguage);
+
+            // Add animation classes
+            document.querySelectorAll('.scheme-card').forEach((card, index) => {
+                card.style.animationDelay = `${0.1 * index}s`;
+            });
+        });
+
     </script>
 </body>
+
 </html>
