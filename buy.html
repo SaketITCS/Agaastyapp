@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agastya - Handcrafted Eco Treasures</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #83A481;
+            --primary-dark: #6A8969;
+            --secondary: #A4BDAB;
+            --light: #F5F7F4;
+            --dark: #3A4D39;
+            --accent: #E6B17E;
+            --accent-dark: #D49A67;
+            --red: #E67E7E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: var(--primary);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .header-icon {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .header-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .search-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            border-radius: 25px;
+            padding: 0.7rem 1.2rem;
+            margin: 0.8rem auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-container:focus-within {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+            padding: 0.2rem 0.5rem;
+            background: transparent;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1000/500') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-button {
+            background-color: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .hero-button:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .product-container {
+            padding: 2rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            height: 3px;
+            width: 70%;
+            background-color: var(--accent);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .section-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .section-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .category-pills {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            padding: 0.5rem 0 1.5rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .category-pills::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            background-color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .category-pill:hover {
+            background-color: #f0f0f0;
+        }
+
+        .category-pill.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(131, 164, 129, 0.3);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            transform: translateY(40px);
+            opacity: 0;
+            transition: transform 0.5s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px) scale(1.02) !important;
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .product-info {
+            padding: 1.2rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .product-origin {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-origin::before {
+            content: '•';
+            color: var(--primary);
+            margin-right: 5px;
+            font-size: 1.2rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0.5rem 0;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #666;
+            margin-bottom: 1.2rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .favorite {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .favorite:hover {
+            background-color: #f8f8f8;
+            transform: scale(1.1);
+        }
+
+        .favorite.active svg {
+            fill: var(--red);
+            stroke: var(--red);
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #999;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item.active .nav-icon {
+            background-color: rgba(131, 164, 129, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-indicator {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent);
+            color: white;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid rgba(131, 164, 129, 0.2);
+        }
+
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-logo {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-text {
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+        }
+
+        .notification.show {
+            animation: slideDown 0.5s forwards, slideUp 0.5s forwards 2.5s;
+        }
+
+        .notification-icon {
+            width: 24px;
+            height: 24px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes slideDown {
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateX(-50%) translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        .eco-badge {
+            background-color: #57744B;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(131, 164, 129, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .feature-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .artisans-section {
+            padding: 2rem 0;
+            background-color: white;
+            margin: 3rem 0;
+            border-radius: 20px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .artisan-cards {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+        }
+
+        .artisan-cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .artisan-card {
+            min-width: 280px;
+            background-color: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            scroll-snap-align: start;
+        }
+
+        .artisan-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .artisan-info {
+            padding: 1.2rem;
+        }
+
+        .artisan-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .artisan-location {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .artisan-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .scroll-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .scroll-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .newsletter {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--secondary);
+            color: var(--dark);
+            margin-bottom: 5rem;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/300') center/cover;
+            opacity: 0.05;
+        }
+
+        .newsletter-content {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px 0 0 30px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .newsletter-button {
+            background-color: var(--accent);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0 30px 30px 0;
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-button:hover {
+            background-color: var(--accent-dark);
+        }
+
+        /* Filter Drawer */
+        .filter-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 2rem 1.5rem 6rem 1.5rem;
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 200;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .filter-drawer.open {
+            transform: translateY(0);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .close-filter {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+
+        .filter-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .price-range {
+            padding: 0 0.5rem;
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .price-input-group {
+            flex: 1;
+        }
+
+        .price-input-group label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .price-input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            padding: 0 0.5rem;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-checkbox input {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+        }
+
+        .filter-checkbox label {
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .filter-button {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reset-button {
+            background-color: white;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+
+        .apply-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .apply-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .header {
+                padding: 1.2rem;
+            }
+
+            .hero {
+                padding: 4rem 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .filter-drawer {
+                max-width: 450px;
+                left: auto;
+                right: 1.5rem;
+                border-radius: 15px;
+                padding-bottom: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header {
+                padding: 1.5rem;
+            }
+
+            .hero {
+                padding: 5rem 2rem;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .newsletter {
+                margin-bottom: 3rem;
+            }
+        }
+
+        .footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-tagline {
+            margin: 1rem 0 1.5rem;
+            opacity: 0.85;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+            transform: translateX(3px);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .payment-icon {
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .payment-icon:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-logo">AGASTYA</div>
+        <div class="loading-text">Connecting you to incredible artisans...</div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <div>Added to cart successfully!</div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Filter Drawer -->
+    <div class="filter-drawer" id="filterDrawer">
+        <div class="filter-header">
+            <h3 class="filter-title">Filter Products</h3>
+            <button class="close-filter" id="closeFilter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="filter-section">
+            <h4 class="filter-section-title">Price Range</h4>
+            <div class="price-range">
+                <input type="range" min="0" max="5000" value="2500" id="priceSlider" class="price-slider">
+                <div class="price-inputs">
+                    <div class="price-input-group">
+                        <label for="minPrice">Min Price</label>
+                        <input type="number" id="minPrice" class="price-input" placeholder="0" min="0">
+                    </div>
+                    <div class="price-input-group">
+                        <label for="maxPrice">Max Price</label>
+                        <input type="number" id="maxPrice" class="price-input" placeholder="5000" max="5000">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h4 class="filter-section-title">Categories</h4>
+            <div class="filter-options">
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat1" checked>
+                    <label for="cat1">Home Decor</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat2">
+                    <label for="cat2">Kitchenware</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat3">
+                    <label for="cat3">Jewelry</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat4">
+                    <label for="cat4">Textiles</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat5">
+                    <label for="cat5">Art Pieces</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat6">
+                    <label for="cat6">Wellness</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h4 class="filter-section-title">Origin</h4>
+            <div class="filter-options">
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="origin1" checked>
+                    <label for="origin1">Kashmir</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="origin2">
+                    <label for="origin2">Rajasthan</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="origin3">
+                    <label for="origin3">Bengal</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="origin4">
+                    <label for="origin4">Tamil Nadu</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="origin5">
+                    <label for="origin5">Kerala</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="origin6">
+                    <label for="origin6">Gujarat</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-actions">
+            <button class="filter-button reset-button" id="resetFilter">Reset</button>
+            <button class="filter-button apply-button" id="applyFilter">Apply Filters</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">AGASTYA<span>.</span></div>
+            <div class="header-actions">
+                <div class="header-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="header-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 8a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"></path>
+                        <path d="M21 8H7"></path>
+                        <path d="M14 8a7 7 0 0 1-7 7H3l3.5 3.5"></path>
+                    </svg>
+                </div>
+                <div class="header-icon" id="cartIcon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-indicator">3</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Search handcrafted treasures">
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Discover Authentic Handcrafted Treasures</h2>
+            <p>Supporting local artisans while bringing sustainable craftsmanship into your home</p>
+            <button class="hero-button">Shop Collection</button>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <div class="container">
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Direct from Artisans</h4>
+                    <p>Support artisans by buying directly from the source</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Sourced Locally</h4>
+                    <p>Each piece tells a story of regional craftsmanship</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Authentic Quality</h4>
+                    <p>Handcrafted with care and traditional techniques</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                        <line x1="6" y1="1" x2="6" y2="4"></line>
+                        <line x1="10" y1="1" x2="10" y2="4"></line>
+                        <line x1="14" y1="1" x2="14" y2="4"></line>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Eco-Friendly</h4>
+                    <p>Sustainable materials for a greener planet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Section -->
+    <section class="product-container container">
+        <div class="section-header">
+            <h3 class="section-title">Trending Products</h3>
+            <a href="#" class="section-link">
+                View All
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <div class="category-pills">
+            <div class="category-pill active">All</div>
+            <div class="category-pill">Home Decor</div>
+            <div class="category-pill">Kitchenware</div>
+            <div class="category-pill">Jewelry</div>
+            <div class="category-pill">Textiles</div>
+            <div class="category-pill">Art Pieces</div>
+            <div class="category-pill">Wellness</div>
+        </div>
+
+        <div class="products">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://nestasia.in/cdn/shop/files/SaladBowl_7_48fab9fc-c36a-4d04-b7a0-dc6890083106.jpg?v=1727948268&width=600" alt="Handcrafted Wooden Bowl" class="product-image">
+                    <div class="product-badge">New Arrival</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Wooden Serving Bowl</h3>
+                    <div class="product-origin">Rajasthan, India</div>
+                    <div class="product-price">₹1,499 <span class="eco-badge">Eco</span></div>
+                    <p class="product-description">Hand-carved from sustainable acacia wood, this beautiful serving bowl
+                        brings nature to your table.</p>
+                    <div class="product-action">
+                        <button class="add-to-cart">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                        <div class="favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://m.media-amazon.com/images/I/91CmmEvgeqL.jpg" alt="Handwoven Cotton Rug" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Block Print Cotton Rug</h3>
+                    <div class="product-origin">Gujarat, India</div>
+                    <div class="product-price">₹2,499 <span class="eco-badge">Eco</span></div>
+                    <p class="product-description">Handwoven cotton rug with traditional block printing techniques,
+                        perfect for adding warmth to any room.</p>
+                    <div class="product-action">
+                        <button class="add-to-cart">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                        <div class="favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://m.media-amazon.com/images/I/71qPcKrMKHL._AC_UF894,1000_QL80_.jpg" alt="Ceramic Tea Set" class="product-image">
+                    <div class="product-badge">Bestseller</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Blue Pottery Tea Set</h3>
+                    <div class="product-origin">Jaipur, Rajasthan</div>
+                    <div class="product-price">₹3,299</div>
+                    <p class="product-description">Traditional Jaipur blue pottery tea set with intricate hand-painted
+                        details. Includes teapot and 4 cups.</p>
+                    <div class="product-action">
+                        <button class="add-to-cart">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                        <div class="favorite active">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://atrangistudio.com/cdn/shop/products/Atrangi_Mandala_Cushion_Cover_2.png?v=1631790359&width=1000" alt="Hand-embroidered Cushion Cover" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Kashmiri Embroidered Cushion</h3>
+                    <div class="product-origin">Kashmir Valley</div>
+                    <div class="product-price">₹1,899</div>
+                    <p class="product-description">Exquisite hand-embroidered cushion cover featuring traditional
+                        Kashmiri chain stitch work.</p>
+                    <div class="product-action">
+                        <button class="add-to-cart">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                        <div class="favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artisans Section -->
+    <section class="container">
+        <div class="section-header">
+            <h3 class="section-title">Meet Our Artisans</h3>
+            <a href="#" class="section-link">
+                View All
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <div class="artisans-section">
+            <div class="artisan-cards" id="artisanCards">
+                <div class="artisan-card">
+                    <img src="https://www.juit.ac.in/profile_pics/RaviSharmaCSE.jpg" alt="Artisan Ravi" class="artisan-image">
+                    <div class="artisan-info">
+                        <h4 class="artisan-name">Ravi Sharma</h4>
+                        <div class="artisan-location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Jaipur, Rajasthan
+                        </div>
+                        <p class="artisan-description">Master potter creating blue pottery for over 30 years. Ravi's
+                            pieces blend traditional techniques with contemporary designs.</p>
+                    </div>
+                </div>
+
+                <div class="artisan-card">
+                    <img src="data:image/jpeg;base64,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">
+                    <div class="artisan-info">
+                        <h4 class="artisan-name">Meera Patel</h4>
+                        <div class="artisan-location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Kutch, Gujarat
+                        </div>
+                        <p class="artisan-description">Award-winning textile artist specializing in traditional block
+                            printing and natural dyes for sustainable home textiles.</p>
+                    </div>
+                </div>
+
+                <div class="artisan-card">
+                    <img src="data:image/jpeg;base64,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" alt="Artisan Abdul" class="artisan-image">
+                    <div class="artisan-info">
+                        <h4 class="artisan-name">Abdul Khan</h4>
+                        <div class="artisan-location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Srinagar, Kashmir
+                        </div>
+                        <p class="artisan-description">Third-generation master craftsman creating exquisite
+                            hand-embroidered pieces using traditional Kashmiri techniques.</p>
+                    </div>
+                </div>
+
+                <div class="artisan-card">
+                    <img src="data:image/jpeg;base64,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" alt="Artisan Lakshmi" class="artisan-image">
+                    <div class="artisan-info">
+                        <h4 class="artisan-name">Lakshmi Devi</h4>
+                        <div class="artisan-location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Madurai, Tamil Nadu
+                        </div>
+                        <p class="artisan-description">Skilled weaver creating stunning brass and bamboo products using
+                            traditional South Indian crafting methods.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-buttons">
+                <div class="scroll-button" id="scrollLeft">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </div>
+                <div class="scroll-button" id="scrollRight">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="container">
+        <div class="newsletter">
+            <div class="newsletter-content">
+                <h3>Join Our Community</h3>
+                <p>Subscribe to receive updates on new artisans, products and exclusive offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" class="newsletter-input">
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-item active">
+            <div class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <div>Home</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+            </div>
+            <div>Categories</div>
+        </div>
+        <div class="nav-item" id="filterButton">
+            <div class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+            </div>
+            <div>Filter</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                    </path>
+                </svg>
+            </div>
+            <div>Favorites</div>
+        </div>
+    </nav>
+
+    <script>
+        // Loading Animation
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(function () {
+                    document.getElementById('loading').style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Animate products on scroll
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.utils.toArray('.product-card').forEach((card, i) => {
+                gsap.to(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none none'
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    delay: i * 0.1,
+                    ease: 'power2.out',
+                    fromTo: {
+                        y: 30,
+                        opacity: 0
+                    }
+                });
+            });
+
+            // Artisan carousel scroll
+            const artisanCards = document.getElementById('artisanCards');
+            const scrollLeftBtn = document.getElementById('scrollLeft');
+            const scrollRightBtn = document.getElementById('scrollRight');
+
+            scrollLeftBtn.addEventListener('click', function () {
+                artisanCards.scrollBy({
+                    left: -300,
+                    behavior: 'smooth'
+                });
+            });
+
+            scrollRightBtn.addEventListener('click', function () {
+                artisanCards.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Filter drawer functionality
+            const filterButton = document.getElementById('filterButton');
+            const filterDrawer = document.getElementById('filterDrawer');
+            const closeFilter = document.getElementById('closeFilter');
+            const overlay = document.getElementById('overlay');
+
+            filterButton.addEventListener('click', function () {
+                filterDrawer.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeFilter.addEventListener('click', function () {
+                filterDrawer.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            overlay.addEventListener('click', function () {
+                filterDrawer.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Add to cart notification
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const notification = document.getElementById('notification');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    notification.classList.add('show-notification');
+
+                    setTimeout(function () {
+                        notification.classList.remove('show-notification');
+                    }, 3000);
+                });
+            });
+
+            // Category pill selection
+            const categoryPills = document.querySelectorAll('.category-pill');
+
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function () {
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Favorite toggle
+            const favoriteButtons = document.querySelectorAll('.favorite');
+
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    this.classList.toggle('active');
+
+                    // Toggle SVG fill
+                    const svg = this.querySelector('svg');
+                    if (this.classList.contains('active')) {
+                        svg.setAttribute('fill', 'currentColor');
+                    } else {
+                        svg.setAttribute('fill', 'none');
+                    }
+                });
+            });
+
+            // Price range slider
+            const priceSlider = document.getElementById('priceSlider');
+            const minPrice = document.getElementById('minPrice');
+            const maxPrice = document.getElementById('maxPrice');
+
+            priceSlider.addEventListener('input', function () {
+                const value = this.value;
+                maxPrice.value = value;
+            });
+
+            minPrice.addEventListener('input', function () {
+                const value = parseInt(this.value) || 0;
+                if (value > parseInt(maxPrice.value)) {
+                    this.value = maxPrice.value;
+                }
+            });
+
+            maxPrice.addEventListener('input', function () {
+                const value = parseInt(this.value) || 0;
+                if (value < parseInt(minPrice.value)) {
+                    this.value = minPrice.value;
+                }
+                priceSlider.value = value;
+            });
+
+            // Reset filter
+            const resetFilter = document.getElementById('resetFilter');
+            const filterCheckboxes = document.querySelectorAll('.filter-checkbox input');
+
+            resetFilter.addEventListener('click', function () {
+                filterCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                minPrice.value = '';
+                maxPrice.value = '';
+                priceSlider.value = 2500;
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">AGASTYA<span>.</span></div>
+                    <p class="footer-tagline">Connecting artisans to the world, preserving cultural heritage one craft
+                        at a time.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home Decor</a></li>
+                        <li><a href="#">Kitchenware</a></li>
+                        <li><a href="#">Jewelry</a></li>
+                        <li><a href="#">Textiles</a></li>
+                        <li><a href="#">Art Pieces</a></li>
+                        <li><a href="#">Wellness</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Artisans</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Meet the Artisans</a></li>
+                        <li><a href="#">Artisan Stories</a></li>
+                        <li><a href="#">Become an Artisan</a></li>
+                        <li><a href="#">Craft Techniques</a></li>
+                        <li><a href="#">Regional Crafts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Help</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">© 2025 Agastya. All rights reserved.</div>
+                <div class="payment-methods">
+                    <div class="payment-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div class="payment-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2"></path>
+                            <rect x="2" y="8" width="6" height="8" rx="1"></rect>
+                        </svg>
+                    </div>
+                    <div class="payment-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 14c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"></path>
+                            <path d="M4 7v3a8 8 0 1 0 16 0V7"></path>
+                            <path d="M8 7V5a4 4 0 0 1 8 0v2"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
