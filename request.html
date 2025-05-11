@@ -228,8 +228,8 @@
             transform: translateX(5px);
         }
 
-        /* Eligibility Section */
-        .eligibility-section {
+        /* Product Listing Section */
+        .product-listing-section {
             background: white;
             border-radius: 1rem;
             padding: 2rem;
@@ -241,7 +241,7 @@
             animation: fadeIn 1s forwards 1s;
         }
 
-        .eligibility-section:before {
+        .product-listing-section:before {
             content: '';
             position: absolute;
             top: 0;
@@ -251,55 +251,8 @@
             background: var(--primary-color);
         }
 
-        .eligibility-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .eligibility-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 0.5rem 0;
-        }
-
-        .eligibility-icon {
-            width: 30px;
-            height: 30px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: var(--dark-color);
-            margin-right: 1rem;
-        }
-
-        .eligibility-text {
-            flex: 1;
-        }
-
-        /* Application Form */
-        .application-form {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            position: relative;
-            opacity: 0;
-            animation: fadeIn 1s forwards 1.2s;
-        }
-
-        .application-form:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        .product-form {
+            margin-top: 2rem;
         }
 
         .form-group {
@@ -528,6 +481,31 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* Image Preview */
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-preview:hover {
+            border-color: var(--primary-color);
+        }
+
+        .image-preview-text {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -694,51 +672,117 @@
                 </div>
             </div>
 
-            <!-- Eligibility -->
-            <div class="eligibility-section">
-                <h3 class="section-title">Eligibility Criteria</h3>
-                <ul class="eligibility-list">
-                    <li class="eligibility-item">
-                        <div class="eligibility-icon">
-                            <i class="fas fa-home"></i>
+            <!-- Product Listing Section (Replaced Eligibility Section) -->
+            <div class="product-listing-section">
+                <h3 class="section-title">List Your Product</h3>
+                <p class="text-center mb-4">Have fresh items to sell? List your products below to showcase your offerings.</p>
+                
+                <form class="product-form" id="productForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" placeholder="Enter product name" required>
+                            </div>
                         </div>
-                        <div class="eligibility-text">
-                            <h4>Housing Status</h4>
-                            <p>Currently experiencing homelessness, transitioning to permanent housing, or living in
-                                temporary/emergency shelter.</p>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="productCategory" class="form-label">Category</label>
+                                <select class="form-control" id="productCategory" required>
+                                    <option value="">Select category</option>
+                                    <option value="homeDecor">Home Decor</option>
+                                    <option value="kitchenware">Kitchenware</option>
+                                    <option value="jewelry">Jewelry</option>
+                                    <option value="textiles">Textiles</option>
+                                    <option value="artPieces">Art Pieces</option>
+                                    <option value="wellness">Wellness</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
                         </div>
-                    </li>
-                    <li class="eligibility-item">
-                        <div class="eligibility-icon">
-                            <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+            
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="productPrice" class="form-label">Price (INR)</label>
+                                <input type="number" class="form-control" id="productPrice" min="0.01" step="0.01" placeholder="Enter price" required>
+                            </div>
                         </div>
-                        <div class="eligibility-text">
-                            <h4>Financial Need</h4>
-                            <p>Household income below local area median income or experiencing financial hardship due to
-                                job loss, medical emergency, or natural disaster.</p>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="productQuantity" class="form-label">Quantity Available</label>
+                                <input type="number" class="form-control" id="productQuantity" min="1" max="1000" value="1" required>
+                            </div>
                         </div>
-                    </li>
-                    <li class="eligibility-item">
-                        <div class="eligibility-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescription" rows="3" placeholder="Describe your product in detail" required></textarea>
+                    </div>
+            
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="productDimensions" class="form-label">Dimensions (optional)</label>
+                                <input type="text" class="form-control" id="productDimensions" placeholder="e.g., 10in x 5in x 2in">
+                            </div>
                         </div>
-                        <div class="eligibility-text">
-                            <h4>Location</h4>
-                            <p>Residing within our service area (approximately 50km radius from our distribution
-                                center).</p>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="productWeight" class="form-label">Weight (optional)</label>
+                                <input type="text" class="form-control" id="productWeight" placeholder="e.g., 2 pounds">
+                            </div>
                         </div>
-                    </li>
-                    <li class="eligibility-item">
-                        <div class="eligibility-icon">
-                            <i class="fas fa-file-alt"></i>
+                    </div>
+            
+                    <div class="form-group">
+                        <label class="form-label">Product Images</label>
+                        <input type="file" class="form-control" id="productImages" accept="image/*" multiple hidden>
+                        <div class="image-preview" id="imagePreview">
+                            <span class="image-preview-text"><i class="fas fa-cloud-upload-alt me-2"></i>Click to upload images</span>
                         </div>
-                        <div class="eligibility-text">
-                            <h4>Documentation</h4>
-                            <p>Able to provide basic identification and proof of need (referral letter, social services
-                                documentation, etc.).</p>
+                        <small class="text-muted">You can upload up to 5 images (max 5MB each)</small>
+                    </div>
+            
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shippingOptions" class="form-label">Shipping Options</label>
+                                <select class="form-control" id="shippingOptions" required>
+                                    <option value="">Select shipping option</option>
+                                    <option value="free">Free Shipping</option>
+                                    <option value="flat">Flat Rate</option>
+                                    <option value="calculated">Calculated by Location</option>
+                                    <option value="pickup">Local Pickup Only</option>
+                                </select>
+                            </div>
                         </div>
-                    </li>
-                </ul>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="contactMethod" class="form-label">Preferred Contact Method</label>
+                                <select class="form-control" id="contactMethod" required>
+                                    <option value="">Select contact method</option>
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="both">Both Email and Phone</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">
+                            I agree to the terms and conditions and confirm that this product listing is accurate
+                        </label>
+                    </div>
+            
+                    <button type="submit" class="submit-btn">
+                        List Product <i class="fas fa-plus-circle ms-2"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -878,7 +922,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <img src="image.png" alt="Agastya Logo" class="footer-logo">
+            <img src="/api/placeholder/80/80" alt="Agastya Logo" class="footer-logo">
             <p class="footer-tagline">Together we can make a difference</p>
 
             <div class="social-links">
@@ -893,103 +937,177 @@
     </footer>
 
     <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Application Submitted</h5>
+                    <h5 class="modal-title" id="successModalLabel">Application Submitted!</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-success-icon">
                         <i class="fas fa-check"></i>
                     </div>
-                    <h4>Thank You!</h4>
-                    <p>Your assistance application has been successfully submitted. Our team will review your request
-                        and contact you within 48 hours.</p>
-                    <p>Your application ID: <strong id="applicationId">AG-25841</strong></p>
+                    <h4 class="mt-3 mb-3">Thank You!</h4>
+                    <p>Your application has been successfully submitted. Our team will review your request and contact you shortly.</p>
+                    <p>Your application ID: <strong id="applicationId">AG-25845</strong></p>
+                </div>
+                <div class="modal-footer justify-content-center">
                     <button type="button" class="modal-btn" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Product Success Modal -->
+    <div class="modal fade" id="productSuccessModal" tabindex="-1" aria-labelledby="productSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productSuccessModalLabel">Product Listed!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-success-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4 class="mt-3 mb-3">Your Product Has Been Listed!</h4>
+                    <p>Your product has been successfully listed. Our team will review the information and may contact you if needed.</p>
+                    <p>Product ID: <strong id="donationId">PD-12345</strong></p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="modal-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and other script includes -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Category cards
+        document.addEventListener("DOMContentLoaded", function() {
+            // Category card click handlers
             const categoryCards = document.querySelectorAll('.category-card');
             categoryCards.forEach(card => {
-                card.addEventListener('click', function () {
+                card.addEventListener('click', function() {
                     const category = this.getAttribute('data-category');
-                    document.getElementById(category + 'Check').checked = true;
-                    document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Auto-scroll to application form
+                    document.getElementById('apply').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Auto-check the corresponding checkbox
+                    setTimeout(() => {
+                        switch(category) {
+                            case 'clothing':
+                                document.getElementById('clothingCheck').checked = true;
+                                break;
+                            case 'furniture':
+                                document.getElementById('furnitureCheck').checked = true;
+                                break;
+                            case 'books':
+                                document.getElementById('booksCheck').checked = true;
+                                break;
+                            case 'electronics':
+                                document.getElementById('electronicsCheck').checked = true;
+                                break;
+                        }
+                    }, 800);
                 });
             });
 
             // Stats counter animation
-            // Stats counter animation
             const stats = document.querySelectorAll('.stat-number');
-
+            
             function animateStats() {
                 stats.forEach(stat => {
                     const target = parseInt(stat.getAttribute('data-count'));
-                    const duration = 2000; // Animation duration in milliseconds
-                    const increment = target / (duration / 20);
-                    let current = 0;
+                    const count = +stat.innerText;
+                    const speed = 4000 / target; // Adjust animation speed
+                    
+                    if(count < target) {
+                        stat.innerText = Math.ceil(count + target/100);
+                        setTimeout(animateStats, speed);
+                    } else {
+                        stat.innerText = target;
+                    }
+                });
+            }
+            
+            // Start animation when stats section is in viewport
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    animateStats();
+                    observer.disconnect();
+                }
+            });
+            
+            observer.observe(document.querySelector('.stats-section'));
 
-                    const counter = setInterval(() => {
-                        current += increment;
-                        stat.innerText = Math.floor(current);
-
-                        if (current >= target) {
-                            stat.innerText = target;
-                            clearInterval(counter);
-                        }
-                    }, 20);
+            // Form submission handlers
+            const assistanceForm = document.getElementById('assistanceForm');
+            if (assistanceForm) {
+                assistanceForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Generate random application ID
+                    const appId = 'AG-' + Math.floor(10000 + Math.random() * 90000);
+                    document.getElementById('applicationId').innerText = appId;
+                    
+                    // Show success modal
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                    
+                    // Reset form
+                    assistanceForm.reset();
                 });
             }
 
-            // Check if stats section is in viewport
-            const statsSection = document.querySelector('.stats-section');
-            let animationTriggered = false;
-
-            function checkScroll() {
-                if (animationTriggered) return;
-
-                const rect = statsSection.getBoundingClientRect();
-                const isInViewport = (
-                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.bottom >= 0
-                );
-
-                if (isInViewport) {
-                    animateStats();
-                    animationTriggered = true;
-                }
+            // Product form submission handlers
+            const productForm = document.getElementById('productForm');
+            if (productForm) {
+                productForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Generate random donation ID
+                    const donationId = 'DN-' + Math.floor(10000 + Math.random() * 90000);
+                    document.getElementById('donationId').innerText = donationId;
+                    
+                    // Show success modal
+                    const productSuccessModal = new bootstrap.Modal(document.getElementById('productSuccessModal'));
+                    productSuccessModal.show();
+                    
+                    // Reset form
+                    productForm.reset();
+                    document.getElementById('imagePreview').style.backgroundImage = '';
+                    document.getElementById('imagePreview').innerHTML = '<span class="image-preview-text"><i class="fas fa-cloud-upload-alt me-2"></i>Click to upload images</span>';
+                });
             }
 
-            window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Check on initial load
-
-            // Form submission
-            const form = document.getElementById('assistanceForm');
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                // Generate random application ID
-                const randomID = 'AG-' + Math.floor(10000 + Math.random() * 90000);
-                document.getElementById('applicationId').innerText = randomID;
-
-                // Show success modal
-                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                successModal.show();
-
-                // Reset form after submission
-                form.reset();
-            });
+            // Image preview functionality
+            const imagePreview = document.getElementById('imagePreview');
+            const productImages = document.getElementById('productImages');
+            
+            if (imagePreview && productImages) {
+                imagePreview.addEventListener('click', function() {
+                    productImages.click();
+                });
+                
+                productImages.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            imagePreview.style.backgroundImage = `url(${e.target.result})`;
+                            imagePreview.innerHTML = '';
+                        };
+                        
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            }
         });
     </script>
 </body>
-
 </html>
